@@ -36,10 +36,10 @@ const Register = () => {
     } = useRegister();
 
     return (
-        <StyledContainerRegister background={`${process.env.REACT_APP_ASSETS_URL}/images/background-register.png`}>
+        <StyledContainerRegister background={`http://${process.env.REACT_APP_ASSETS_URL}/images/background-register.png`}>
             <Grid item lg={12} className="flex justify-center py-10">
                 <StyledLogoSeranest
-                    src={`${process.env.REACT_APP_ASSETS_URL}/images/logo-seranest.png`}
+                    src={`http://${process.env.REACT_APP_ASSETS_URL}/images/logo-seranest.png`}
                     alt="logo-seranest"
                 />
             </Grid>
@@ -392,7 +392,7 @@ const Register = () => {
                             <StyledButton
                                 disabled={!isValid}
                             >
-                                <img src={`${process.env.REACT_APP_ASSETS_URL}/images/send-button.png`} alt="Button" width={250}/>
+                                <img src={`http://${process.env.REACT_APP_ASSETS_URL}/images/send-button.png`} alt="Button" width={250}/>
                             </StyledButton>
                         </Grid>
                     </Grid>
