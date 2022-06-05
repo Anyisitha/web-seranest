@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./setupTests";
+import "./styles/tailwind.scss";
 
 ReactDOM.render(
     <React.StrictMode>
