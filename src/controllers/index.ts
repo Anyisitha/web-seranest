@@ -1,8 +1,10 @@
 import useGeneralHooks from "./generalHooks";
+import useScreenHooks from "./screenHooks";
 
 const useControllers = () => {
   return {
-      useGeneralHooks
+      useGeneralHooks,
+      useScreenHooks,
   };
 }
 
