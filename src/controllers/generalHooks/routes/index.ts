@@ -3,8 +3,16 @@ import useViews from "views";
 
 const useRoutesHook = () => {
     // Views
-    const {useScreens} = useViews();
-    const {Register} = useScreens();
+    const {useScreens, useLayouts} = useViews();
+    const {Register, Login} = useScreens();
+
+    /** Layouts */
+    const {
+        LoginLayout,
+        DashboardLayout,
+        LoginAdminLayout,
+        AdminLayout
+    } = useLayouts();
 
     const routesArray : IRoutes[] = [
         {
@@ -12,6 +20,13 @@ const useRoutesHook = () => {
             path: "/register",
             name: "Register",
             exact: true
+        },
+        {
+            Component: Login,
+            path: "/",
+            name: "Login",
+            exact: true,
+            layout: LoginLayout
         }
     ]
 
