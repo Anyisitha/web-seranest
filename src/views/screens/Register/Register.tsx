@@ -30,16 +30,17 @@ const Register = () => {
         setCheck2,
         check3,
         setCheck3,
-        setError,
         isValid,
-        errors
+        errors,
+        handleRegister,
+        handleSubmit
     } = useRegister();
 
     return (
-        <StyledContainerRegister background={`http://${process.env.REACT_APP_ASSETS_URL}/images/background-register.png`}>
+        <StyledContainerRegister background={`${process.env.REACT_APP_ASSETS_URL}/images/background-register.png`}>
             <Grid item lg={12} className="flex justify-center py-10">
                 <StyledLogoSeranest
-                    src={`http://${process.env.REACT_APP_ASSETS_URL}/images/logo-seranest.png`}
+                    src={`${process.env.REACT_APP_ASSETS_URL}/images/logo-seranest.png`}
                     alt="logo-seranest"
                 />
             </Grid>
@@ -239,7 +240,7 @@ const Register = () => {
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
                             <InputRegister
                                 control={control}
-                                name="work_address"
+                                name="address"
                                 placeholder=""
                                 label="Dirección de correspondencia* :"
                                 type="text"
@@ -332,9 +333,6 @@ const Register = () => {
                                 checked={check1}
                                 isMinimum
                             />
-                            {errors.name === "check1" && (
-                                <span className="text-danger">Debes aceptar los terminos y condiciones.</span>
-                            )}
                         </Grid>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
                             <CheckboxRegister
@@ -347,21 +345,10 @@ const Register = () => {
                                 isFull
                                 isMinimum
                                 onChange={() => {
-                                    if (!check2) {
-                                        setError("check2", {
-                                            type: "validate",
-                                            message: "Debes aceptar los terminos y condiciones"
-                                        })
-                                        setCheck2(!check2)
-                                    } else {
-                                        setCheck2(!check2)
-                                    }
+                                    setCheck2(!check2)
                                 }}
                                 checked={check2}
                             />
-                            {errors.name === "check2" && (
-                                <span className="text-danger">Debes aceptar los terminos y condiciones</span>
-                            )}
                         </Grid>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
                             <CheckboxRegister
@@ -369,15 +356,7 @@ const Register = () => {
                                 isFull
                                 isMinimum
                                 onChange={() => {
-                                    if (!check3) {
-                                        setError("check3", {
-                                            type: "validate",
-                                            message: "Debes aceptar los terminos y condiciones"
-                                        })
-                                        setCheck3(!check2)
-                                    } else {
-                                        setCheck3(!check2)
-                                    }
+                                    setCheck3(!check3)
                                 }}
                                 checked={check3}
                             />
@@ -391,8 +370,10 @@ const Register = () => {
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="py-10 flex justify-center">
                             <StyledButton
                                 disabled={!isValid}
+                                onClick={handleSubmit(handleRegister)}
                             >
-                                <img src={`http://${process.env.REACT_APP_ASSETS_URL}/images/send-button.png`} alt="Button" width={250}/>
+                                <img src={`${process.env.REACT_APP_ASSETS_URL}/images/send-button.png`} alt="Button"
+                                     width={250}/>
                             </StyledButton>
                         </Grid>
                     </Grid>
