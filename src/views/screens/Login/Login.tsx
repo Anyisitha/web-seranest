@@ -19,7 +19,7 @@ const Home: FC = (): JSX.Element => {
     /** Effects */
     useEffect(() => {
         const executePetition = async () => {
-            await token !== "" && history.push("/dashboard");
+            await (token !== "" || token !== undefined) && history.push("/dashboard");
             await getWidth();
         }
 
