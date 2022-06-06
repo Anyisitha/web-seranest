@@ -4,7 +4,7 @@ import useViews from "views";
 const useRoutesHook = () => {
     // Views
     const {useScreens, useLayouts} = useViews();
-    const {Register, Login} = useScreens();
+    const {Register, Login, Dashboard, Modules} = useScreens();
 
     /** Layouts */
     const {
@@ -27,7 +27,21 @@ const useRoutesHook = () => {
             name: "Login",
             exact: true,
             layout: LoginLayout
-        }
+        },
+        {
+            Component: Dashboard,
+            path: "/dashboard",
+            name: "Dashboard",
+            layout: DashboardLayout,
+            exact: true
+        },
+        {
+            Component: Modules,
+            path: "/module/:id",
+            name: "Module",
+            layout: DashboardLayout,
+            exact: true
+        },
     ]
 
     return {
