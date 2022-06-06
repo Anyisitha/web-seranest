@@ -3,10 +3,10 @@ import { StyledImagen1 } from "./Login.styles";
 import { Container, Grid } from "@mui/material";
 import useLocalComponents from "views/localComponents";
 import useControllers from "controllers";
-import {useHistory} from "react-router";
+// import {useHistory} from "react-router";
 
 const Home: FC = (): JSX.Element => {
-    const history = useHistory();
+    // const history = useHistory();
 
     /** Local Components */
     const { LoginCard } = useLocalComponents();
@@ -14,12 +14,12 @@ const Home: FC = (): JSX.Element => {
     /** Controllers */
     const { useScreenHooks } = useControllers();
     const { useLogin } = useScreenHooks();
-    const { width, getWidth, token } = useLogin();
+    const { width, getWidth } = useLogin();
 
     /** Effects */
     useEffect(() => {
         const executePetition = async () => {
-            await (token !== "" || token !== undefined) && history.push("/dashboard");
+            // await (token !== "" || token !== undefined) && history.push("/dashboard");
             await getWidth();
         }
 
