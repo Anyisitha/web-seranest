@@ -5,6 +5,8 @@ import Input from "./Input";
 import FooterLogin from "./FooterLogin";
 import HeaderLogin from "./HeaderLogin";
 import HeaderDashboard from "./HeaderDashboard";
+import CertificateCard from "./CertificateCard";
+import CircleProgress from "./CircleProgreso";
 
 const useComponents = () => {
   return {
@@ -14,7 +16,9 @@ const useComponents = () => {
       Input,
       HeaderLogin,
       FooterLogin,
-      HeaderDashboard
+      HeaderDashboard,
+      CertificateCard,
+      CircleProgress
   }
 }
 

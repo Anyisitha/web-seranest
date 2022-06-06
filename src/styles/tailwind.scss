@@ -12,3 +12,15 @@
 * {
   font-family: "Montserrat", sans-serif;
 }
+
+.MuiDrawer-paperAnchorRight {
+  background: rgba(26, 118, 171, 0.6657213910955007) !important;
+  width: 25%;
+}
+
+@media (max-width: 768px) {
+  .MuiDrawer-paperAnchorRight {
+    width: 80%;
+  }
+
+}
