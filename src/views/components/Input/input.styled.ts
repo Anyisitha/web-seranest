@@ -20,7 +20,8 @@ export const StyledLabel = styled.label`
 
 export const ContainerInputComponent = styled.div<{ isGradiend?: boolean; isRounded?: boolean; widthFull?: boolean; isLine?: boolean;}>`
     ${tw`h-10 flex items-center px-3 `}
-    ${({ isGradiend }) => isGradiend ? "background: linear-gradient(to right, #E54416, white)" : "background: white"
+    ${({isGradiend}) => isGradiend ? tw`text-white` : tw`text-black`}
+    ${({ isGradiend }) => isGradiend ? "background: linear-gradient( 90deg, rgba(48, 68, 144, 1) 17%, rgba(29, 182, 253, 1) 58%, rgba(26, 118, 171, 0.6657213910955007) 100% );" : "background: white"
     };
 
     ${({ isLine }) => isLine ? tw`bg-transparent border-b border-white` : tw`bg-white box-border rounded-md`}
@@ -33,7 +34,7 @@ export const ContainerInputComponent = styled.div<{ isGradiend?: boolean; isRoun
 
 export const StyledInput = styled.input<IStyledInputProps>`
     ${tw`w-full text-sm font-medium border-transparent outline-none h-8 rounded-md top-5 bg-transparent`}
-    ${({ isRounded }) => !isRounded ? "color: #000 !important;" : "color: #fff;"}
+    ${({ isRounded }) => !isRounded ? "color: #fff !important;" : "color: #fff;"}
     ${({ isGradiend }) => !isGradiend && tw`text-white`}
     
 
