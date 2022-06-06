@@ -7,10 +7,18 @@ const AnonymousRoute: FC<IRoutes> = ({
   layout,
   ...otherProps
 }) => {
+
+    /** Layout */
+    const Layout = layout;
+
     return (
         <Route
             {...otherProps}
-            render={(props: RouteComponentProps) => <Component {...props} />}
+            render={(props: RouteComponentProps) => {
+                return layout ? (<Layout>
+                    <Component {...props}/>
+                </Layout>) : <Component {...props} />
+            }}
         />
     )
 }
