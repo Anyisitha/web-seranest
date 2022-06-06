@@ -1,6 +1,13 @@
 import { useCallback, useState } from "react";
+import useModels from "models";
 
 const useLogin = () => {
+    /** Selectors */
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {token} = useSelector(loginSelectors);
+
     /** States */
     const [width, setWidth] = useState<number>(window.innerWidth);
 
@@ -11,7 +18,8 @@ const useLogin = () => {
 
     return {
         width,
-        getWidth
+        getWidth,
+        token
     }
 }
 

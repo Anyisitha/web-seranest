@@ -3,19 +3,27 @@ import { StyledImagen1 } from "./Login.styles";
 import { Container, Grid } from "@mui/material";
 import useLocalComponents from "views/localComponents";
 import useControllers from "controllers";
+import {useHistory} from "react-router";
 
 const Home: FC = (): JSX.Element => {
+    const history = useHistory();
+
     /** Local Components */
     const { LoginCard } = useLocalComponents();
 
     /** Controllers */
     const { useScreenHooks } = useControllers();
     const { useLogin } = useScreenHooks();
-    const { width, getWidth } = useLogin();
+    const { width, getWidth, token } = useLogin();
 
     /** Effects */
     useEffect(() => {
-        getWidth();
+        const executePetition = async () => {
+            await token !== "" && history.push("/dashboard");
+            await getWidth();
+        }
+
+        executePetition().catch(err => console.log(err));
     }, [getWidth])
 
     return width >= 1280 ? (
