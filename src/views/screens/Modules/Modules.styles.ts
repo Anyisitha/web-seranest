@@ -49,7 +49,7 @@ export const StyledButton = styled(Button)`
 export const StyledButtonSection = styled(Button)<{ disabled: boolean; completed: boolean; }>`
   ${({completed}) => completed ? "background-color: #F7931E !important;" : "background: linear-gradient(90deg, rgba(48, 68, 144, 1) 17%, rgba(29, 182, 253, 1) 58%, rgba(26, 118, 171, 0.6657213910955007) 100%);"}
   color: #fff !important;
-  width: 500px;
+  ${tw`w-full lg:w-[500px]`}
   font-family: "Montserrat", sans-serif !important;
   text-transform: none !important;
   ${tw`my-10`}
@@ -59,9 +59,10 @@ export const StyledButtonSection = styled(Button)<{ disabled: boolean; completed
 `
 
 export const StyledSpan = styled.span`
-  font-size: 1.2rem;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
+  
+  ${tw`text-[1rem] lg:text-[1.2rem]`}
 `
 
 export const StyledPaper = styled(Paper)<{ isMobile?: boolean; }>`

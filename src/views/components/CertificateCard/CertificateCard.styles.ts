@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import tw from "twin.macro";
 
-export const StyledCertificateCard = styled.div.attrs({})<{ isBody?: boolean }>`
+export const StyledCertificateCard = styled.div.attrs({})<{ disabled?: boolean }>`
   ${tw`drop-shadow-2xl w-full h-[162px]`}
+  ${({disabled}) => disabled ? tw`bg-[#e1e1e1]` : tw`bg-[#fff]`}
 `
 
 export const StyledAvancedText1 = styled.b`

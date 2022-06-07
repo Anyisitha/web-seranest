@@ -1,13 +1,13 @@
-import { Container, Grid } from "@mui/material";
+import {Container, Grid} from "@mui/material";
 import useControllers from "controllers";
-import React/**, { Fragment, useEffect }*/ from "react";
+import React/**, { Fragment, useEffect }*/, {useEffect} from "react";
 import {
-    // StyledButtonSection,
+    StyledButtonSection,
     StyledContainer,
     StyledContainerTab,
-    // StyledGrid,
+    StyledGrid,
     StyledNumberModule,
-    // StyledPaper,
+    StyledSpan,
     // StyledSpan,
     StyledTab
 } from "./Modules.styles";
@@ -15,6 +15,10 @@ import {
 // import ModulesMobile from "./components/Mobile/Modules.Mobile";
 // import useModels from "models";
 import DragAndDrop from "./components/DragAndDrop";
+import _ from "lodash";
+import Video from "./components/Video";
+import Iframe from "./components/Iframe/Iframe";
+import Questions from "./Questions";
 
 // const Module = () => {
 //     /** Controllers */
@@ -112,15 +116,7 @@ import DragAndDrop from "./components/DragAndDrop";
 //                                                     title="Av-iframe"
 //                                                 ></iframe>
 //                                             ) : section.content[0].type === "Video" ? (
-//                                                 <video
-//                                                     controls
-//                                                     id="video"
-//                                                     src={section.content[0].content}
-//                                                     height="100%"
-//                                                     width="100%"
-//                                                     style={{ height: "100%" }}
-//                                                     onEnded={saveSection}
-//                                                 ></video>
+//
 //                                             ) : (
 //                                                 <Grid item md={12} className="flex justify-center h-full">
 //                                                     <StyledPaper elevation={6}>
@@ -181,10 +177,28 @@ import DragAndDrop from "./components/DragAndDrop";
 const Module = () => {
     /** Controllers */
     const {useScreenHooks} = useControllers();
-    const {useModules} = useScreenHooks();
+    const {useModules, useDashboard} = useScreenHooks();
+    const {getUserProgress, userProgress} = useDashboard();
+    const {moduleFinished, sectionFinished} = userProgress;
     const {
-        id
+        id,
+        showContent,
+        description,
+        sections,
+        handlerShowContent,
+        getModulesSections,
+        section,
+        saveSection,
+        questions,
+        saveModule
     } = useModules();
+
+    /** Effects */
+    useEffect(() => {
+        getUserProgress();
+        getModulesSections();
+    }, [getUserProgress, getModulesSections])
+
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>
             <Container>
@@ -197,8 +211,88 @@ const Module = () => {
                 </Grid>
                 <Grid container>
                     <StyledContainerTab fullWidth>
-                        <StyledTab background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`} item md={12} isBody>
-                            <DragAndDrop/>
+                        <StyledTab background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`} item
+                                   md={12} isBody>
+                            {
+                                showContent ? (
+                                    <>
+                                        {
+                                            section.content[0].type === "Actividad interactiva " ? (
+                                                <DragAndDrop/>
+                                            ) : section.content[0].type === "Video" ? (
+                                                <Video
+                                                    onEnded={saveSection}
+                                                    url={section.content[0].content}
+                                                />
+                                            ) : section.content[0].type === "pdf" ? (
+                                                <Iframe
+                                                    onClick={saveModule}
+                                                    url={section.content[0].content}
+                                                />
+                                            ) : (
+                                                <Grid item md={12} className="flex justify-center h-full">
+                                                    <Questions
+                                                        module={id}
+                                                        description={description}
+                                                        questions={questions}
+                                                        isMobile={false}
+                                                    />
+                                                </Grid>
+                                            )
+                                        }
+                                    </>
+                                ) : (
+                                    <>
+                                        <StyledSpan>{description}</StyledSpan>
+                                        <Grid container className="items-center mt-16 h-[45%]">
+                                            {
+                                                _.map(sections, (item: any, index: number) => (
+                                                        <>
+                                                            {
+                                                                id && parseInt(moduleFinished) > parseInt(id) ? (
+                                                                    <StyledGrid
+                                                                        item
+                                                                        md={12}
+                                                                        xs={12}
+                                                                        className="flex justify-center my-8"
+                                                                        key={index}
+                                                                    >
+
+                                                                        <StyledButtonSection
+                                                                            disabled={false}
+                                                                            completed={true}
+                                                                            onClick={() => handlerShowContent(item.id)}
+                                                                        >
+                                                                            {item.name}
+                                                                        </StyledButtonSection>
+                                                                    </StyledGrid>
+                                                                ) : (
+                                                                    <StyledGrid
+                                                                        item
+                                                                        md={12}
+                                                                        xs={12}
+                                                                        className="flex justify-center my-8"
+                                                                        key={index}
+                                                                    >
+
+                                                                        <StyledButtonSection
+                                                                            disabled={index > sectionFinished}
+                                                                            completed={index < sectionFinished}
+                                                                            onClick={() => handlerShowContent(item.id)}
+                                                                        >
+                                                                            {item.name}
+                                                                        </StyledButtonSection>
+                                                                    </StyledGrid>
+                                                                )
+                                                            }
+                                                        </>
+                                                    )
+                                                )
+                                            }
+                                        </Grid>
+                                    </>
+                                )
+                            }
                         </StyledTab>
                     </StyledContainerTab>
                 </Grid>

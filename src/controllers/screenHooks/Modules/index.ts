@@ -1,13 +1,15 @@
 import useApi from "api";
 import { IGetModuleSection } from "models/interfaces/modules.interfaces";
 import { useCallback, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import {useHistory, useLocation, useParams} from "react-router";
+import Swal from "sweetalert2";
 
 const useModules = () => {
     /** Params */
     const { id } = useParams<{ id?: string; activity?: string; }>();
     const { state } = useLocation<{ description: string; }>();
     const { description } = state;
+    const history = useHistory();
 
     /** States */
     const [sections, setSections] = useState<any>([]);
@@ -18,7 +20,7 @@ const useModules = () => {
     /** Api */
     const { useActions } = useApi();
     const { dispatch, useModulesActions } = useActions();
-    const { actGetModuleSections, actSetSection, actGetQuestions, actSaveSection } = useModulesActions();
+    const { actGetModuleSections, actSetSection, actGetQuestions, actSaveSection, actSetQuestionNumber, actSetModuleFinished, actSetQuestion } = useModulesActions();
 
     /** Callbacks */
     const getModulesSections = useCallback(() => {
@@ -36,9 +38,10 @@ const useModules = () => {
     const handlerShowContent = (sectionSelected: number) => {
         setShowContent(true)
         let sectionSeach = sections.find((item: any) => item.id === sectionSelected)
+
+        console.log(sectionSeach)
         
-        if (sectionSeach.content.type === "Test") {
-            console.log(sectionSeach)
+        if (sectionSeach.content[0].type === "Cuestionario") {
             const request: IGetModuleSection = {
                 id: sectionSelected.toString(),
                 onError: (error: any) => console.log(error),
@@ -83,6 +86,16 @@ const useModules = () => {
         dispatch(actSaveSection({
             onError: (error: any) => console.log(error),
             onSuccess: () => window.location.reload()
+        }));
+
+
+    }
+
+    const saveModule = () => {
+        // @ts-ignore
+        dispatch(actSetModuleFinished({
+            onError: error => console.log(error),
+            onSuccess: data => history.push("/dashboard")
         }))
     }
 
@@ -96,7 +109,8 @@ const useModules = () => {
         section,
         handleSetSection,
         questions,
-        saveSection
+        saveSection,
+        saveModule
     };
 }
 

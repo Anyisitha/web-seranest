@@ -25,7 +25,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
     /** Controllers */
     const { useComponentsHooks } = useControllers();
     const { useQuestions } = useComponentsHooks();
-    const { validateQuestion, handleChange, selectedQuestion, question, resetTest, answers } = useQuestions();
+    const { validateQuestion, handleChange, selectedQuestion, question, resetTest, answers } = useQuestions(questions);
 
     /** Effects*/
     useEffect(() => {
@@ -39,8 +39,8 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
         // eslint-disable-next-line
     }, []);
 
-    let correctAnswer = answers.find((item: any) => {
-        return item.is_correct === "1";
+    let correctAnswer = answers && answers.find((item: any) => {
+        return item.is_correct === 1;
     });
 
     return (
@@ -48,7 +48,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
             {
                 !isMobile ? (
                     <StyledContainerQuestions
-                        background="https://eml.com.co/e-learning-roche/roche/images/fondo-cuestions.jpg"
+                        background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}
                         question={question}
                         isMobile={isMobile}
                     >
@@ -98,7 +98,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                             ) : (
                                 <Fragment>
                                     <StyledQuestion>{`${selectedQuestion.id}. ${selectedQuestion.question}`}</StyledQuestion>
-                                    <div className="pl-8">
+                                    <div className="">
                                         <ol type="A" className="mt-8">
                                             {
 
@@ -106,41 +106,41 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
 
                                                     if (index === 0) {
                                                         return (
-                                                            <Grid container className="items-center gap-2" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-primary font-bold">A. </b>{item.answers}
+                                                                    <b className="text-[#304490] font-bold">A. </b>{item.answers}
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else if (index === 1) {
                                                         return (
-                                                            <Grid container className="items-center gap-2" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-primary font-bold">B. </b>{item.answers}
+                                                                    <b className="text-[#304490] font-bold">B. </b>{item.answers}
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else if (index === 2) {
                                                         return (
-                                                            <Grid container className="items-center gap-2" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-primary font-bold">C. </b>{item.answers}
+                                                                    <b className="text-[#304490] font-bold">C. </b>{item.answers}
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else {
                                                         return (
-                                                            <Grid container className="items-center gap-2" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-primary font-bold">D. </b>{item.answers}
+                                                                    <b className="text-[#304490] font-bold">D. </b>{item.answers}
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
