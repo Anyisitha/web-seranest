@@ -31,6 +31,7 @@ const useLoginAdmin = () => {
         }
 
         dispatch<any>(actLoginAdmin(request));
+        // eslint-disable-next-line
     }, [dispatch])
 
     const handleLoginAdmin = useCallback((data: ILoginAdmin) => {
@@ -41,6 +42,7 @@ const useLoginAdmin = () => {
         }
 
         dispatch<any>(actLoginAdmin(request));
+        // eslint-disable-next-line
     }, [dispatch])
 
     return {

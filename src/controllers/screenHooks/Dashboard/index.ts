@@ -21,6 +21,7 @@ const useDashboard = () => {
 
         // @ts-ignore
         dispatch(actGetModules(request));
+        // eslint-disable-next-line
     }, [dispatch]);
 
     const getUserProgress = useCallback(() => {
@@ -31,6 +32,7 @@ const useDashboard = () => {
 
         // @ts-ignore
         dispatch(actGetUserProgress(request));
+        // eslint-disable-next-line
     }, [dispatch]);
 
 

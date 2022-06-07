@@ -22,7 +22,9 @@ export const StyledTab = styled(Grid)<{ background?: string; isBody?: boolean; }
 export const StyledContainerTab = styled.div<{ fullWidth?: boolean }>`
   ${({fullWidth}) => fullWidth ? tw`w-full` : tw`w-[20%]`}
   box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 0%), 0px 4px 5px 0px rgb(0 0 0 / 18%), 0px 1px 10px 0px rgb(0 0 0 / 14%);
-
+  @media (max-width: 1024px){
+    ${tw`w-full`}
+  }
 `;
 
 export const StyledNumberModule = styled.h1`
@@ -71,3 +73,4 @@ export const StyledGrid = styled(Grid)`
   margin-top: 0.25rem !important;
   margin-bottom: 0.25rem !important;
 `
+

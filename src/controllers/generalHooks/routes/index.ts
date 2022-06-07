@@ -10,8 +10,6 @@ const useRoutesHook = () => {
     const {
         LoginLayout,
         DashboardLayout,
-        LoginAdminLayout,
-        AdminLayout
     } = useLayouts();
 
     const routesArray : IRoutes[] = [

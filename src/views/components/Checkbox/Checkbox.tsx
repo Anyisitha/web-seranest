@@ -1,4 +1,3 @@
-import { Paper } from "@mui/material";
 import { FC, Fragment } from "react";
 import { StyledContainer, StyledInput } from "./Checkbox.styles";
 
