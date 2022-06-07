@@ -14,14 +14,13 @@ const LoginLayout: FC<ILoginLayoutProps> = ({ children }) => {
 
     return (
         <StyledContainer
-            backgroundImage={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`} 
+            backgroundImage={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}
         >
             <StyledSubContainer>
-                <HeaderLogin />
-                <StyledMain>{children}</StyledMain>
-                <FooterLogin />
+                    <HeaderLogin />
+                    <StyledMain>{children}</StyledMain>
+                    <FooterLogin />
             </StyledSubContainer>
-
         </StyledContainer>
 
     );
