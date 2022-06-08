@@ -133,7 +133,7 @@ const HeaderDashboard = () => {
                         }
                         <Grid item md={12} className="flex justify-center pt-6">
                             <StyledButtonDrawer onClick={handleLogout}>
-                                Cerrar Sesión
+                                Cerrar sesión
                             </StyledButtonDrawer>
                         </Grid>
 
