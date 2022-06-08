@@ -4,14 +4,14 @@ import {useState} from "react";
 import {useHistory} from "react-router";
 import Swal from "sweetalert2";
 
-const useQuestions = () => {
+const useQuestions = (questions: any) => {
     /** History */
     const history = useHistory();
 
     /** Api */
     const {useActions} = useApi();
     const {dispatch, useModulesActions} = useActions();
-    const {actSetModuleFinished, actSetQuestion, actSetQuestionNumber} = useModulesActions();
+    const {actSetQuestion, actSetQuestionNumber, actSaveSection} = useModulesActions();
 
     /** States */
     const [responses, setResponses] = useState<any[]>([]);
@@ -24,9 +24,19 @@ const useQuestions = () => {
     const selectedQuestion = useSelector(questionSelector);
     const {question} = useSelector(questionNumberSelector);
 
-    console.log(selectedQuestion.answers, "select");
-
     /** Handlers */
+
+    /**
+     * This function is used for set the section completed.
+     * @return void.
+     */
+    const saveSection = () => {
+        // @ts-ignore
+        dispatch(actSaveSection({
+            onError: (error: any) => console.log(error),
+            onSuccess: () => window.location.reload()
+        }))
+    }
 
     /**
      *  This function is used to make the change and the reaction of the system when selecting an answer.
@@ -35,17 +45,16 @@ const useQuestions = () => {
      *  @param questions any[].
      *  @return void
      */
-    const validateQuestion = (is_correct: string, id: number, answer: string, questions: any[]) => {
-        console.log(is_correct)
+    const validateQuestion = (is_correct: number, id: number, answer: string, questions: any[]) => {
         let percentCorrect: number = questions.length * 0.8;
         console.log(percentCorrect)
-        if (is_correct === "0" && oportunity === 0) {
+        if (is_correct === 0 && oportunity === 0) {
             Swal.fire({
                 icon: "error",
                 title: "Respuesta Incorrecta!",
                 text: "Tienes un intento mas para responder correctamente, Animo!"
             }).then(r => setOportunity(1));
-        } else if (is_correct === "1" && oportunity === 0) {
+        } else if (is_correct === 1 && oportunity === 0) {
             Swal.fire({
                 icon: "success",
                 title: "Respuesta Correcta!",
@@ -72,25 +81,7 @@ const useQuestions = () => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length + 1 >= percentCorrect) {
-                        // @ts-ignore
-                        dispatch(actSetQuestion({
-                            onError: (error) => console.log(error),
-                            onSuccess: () => {
-                                //@ts-ignore
-                                dispatch(actSetQuestionNumber({question: 0}))
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Completaste el modulo!",
-                                    html: `Gracias por completar el modulo, ahora puede seguir con el siguiente modulo.`
-                                }).then(r => {
-                                    // @ts-ignore
-                                    dispatch(actSetModuleFinished({
-                                        onError: (error: any) => console.log(error),
-                                        onSuccess: () => history.push("/dashboard")
-                                    }))
-                                })
-                            }
-                        }, {}))
+                        saveSection();
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -104,7 +95,7 @@ const useQuestions = () => {
             });
         }
 
-        if (is_correct === "0" && oportunity === 1) {
+        if (is_correct === 0 && oportunity === 1) {
             Swal.fire({
                 icon: "error",
                 title: "Respuesta Incorrecta!",
@@ -130,25 +121,7 @@ const useQuestions = () => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        // @ts-ignore
-                        dispatch(actSetQuestion({
-                            onError: (error) => console.log(error),
-                            onSuccess: () => {
-                                //@ts-ignore
-                                dispatch(actSetQuestionNumber({question: 0}))
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Completaste el modulo!",
-                                    html: `Gracias por completar el modulo, ahora puede seguir con el siguiente modulo.`
-                                }).then(r => {
-                                    // @ts-ignore
-                                    dispatch(actSetModuleFinished({
-                                        onError: (error: any) => console.log(error),
-                                        onSuccess: () => history.push("/dashboard")
-                                    }))
-                                })
-                            }
-                        }, {}))
+                        saveSection();
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -160,7 +133,7 @@ const useQuestions = () => {
                     }
                 }
             });
-        } else if (is_correct === "1" && oportunity === 1) {
+        } else if (is_correct === 1 && oportunity === 1) {
             Swal.fire({
                 icon: "success",
                 title: "Respuesta Correcta!",
@@ -187,25 +160,7 @@ const useQuestions = () => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        // @ts-ignore
-                        dispatch(actSetQuestion({
-                            onError: (error) => console.log(error),
-                            onSuccess: () => {
-                                //@ts-ignore
-                                dispatch(actSetQuestionNumber({question: 0}))
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Completaste el modulo!",
-                                    html: `Gracias por completar el modulo, ahora puede seguir con el siguiente modulo.`
-                                }).then(r => {
-                                    // @ts-ignore
-                                    dispatch(actSetModuleFinished({
-                                        onError: (error: any) => console.log(error),
-                                        onSuccess: () => history.push("/dashboard")
-                                    }))
-                                })
-                            }
-                        }, {}))
+                        saveSection()
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -225,13 +180,12 @@ const useQuestions = () => {
      * @param questions Array
      */
     const handleChange = (questions: any[]) => {
+        console.error(questions)
         let index = null;
         let firstQuestion = questions.find((item: any,  ind: number) => {
             index = ind + 1
             return item.id === questions[0].id
         });
-        
-
 
         // @ts-ignore
         dispatch(actSetQuestion({

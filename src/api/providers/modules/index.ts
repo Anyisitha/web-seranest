@@ -7,7 +7,7 @@ const useModulesProviders = () => {
     const { useSelectors } = useModels();
     const { useSelector, useLoginSelectors } = useSelectors();
     const { loginSelectors } = useLoginSelectors();
-    const { token } = useSelector(loginSelectors);
+    const { token,user } = useSelector(loginSelectors);
 
     const getModules = () => trackPromise(axios.get("/module/get-modules", { headers: { Authorization: `Bearer ${token}` } }));
     const getUserProgress = () => trackPromise(axios.get("/module/get-user-progress", { headers: { Authorization: `Bearer ${token}` } }));
@@ -21,9 +21,7 @@ const useModulesProviders = () => {
      * @return Promise<AxiosResponse>.
      */
     const saveSection = () => {
-        return trackPromise(axios.get("/module/save-section", {
-            headers: { Authorization: `Bearer ${token}` }
-        }))
+        return trackPromise(axios.post(`/module/save-section/${user.id}`))
     }
     return {
         getModules,

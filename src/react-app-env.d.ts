@@ -8,3 +8,4 @@ declare global {
     }
 }
 
+declare module "react-beautiful-dnd";

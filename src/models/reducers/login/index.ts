@@ -15,6 +15,9 @@ const useLoginReducers = () => {
     const { useLoginTypes } = useStrings();
     const { LOGIN, USER_PROGRESS } = useLoginTypes();
 
+    const SET_QUESTION = "SET_QUESTION";
+    const SET_QUESTION_NUMBER = "SET_QUESTION_NUMBER";
+
     const login = createReducer(loginInitialState, {
         [LOGIN](state: any, action: any){
             return {
@@ -25,7 +28,7 @@ const useLoginReducers = () => {
     })
 
     const question = createReducer({}, {
-        ["SET_QUESTION"](state: any, action: any){
+        [SET_QUESTION](state: any, action: any){
             return {
                 ...state,
                 ...action.payload
@@ -34,7 +37,7 @@ const useLoginReducers = () => {
     })
 
     const questionNumber = createReducer({ question: 0 }, {
-        ["SET_QUESTION_NUMBER"](state: any, action: any){
+        [SET_QUESTION_NUMBER](state: any, action: any){
             return {
                 ...state,
                 ...action.payload

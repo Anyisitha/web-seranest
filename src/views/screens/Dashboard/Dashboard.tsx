@@ -19,6 +19,7 @@ import {
     StyledTextCard,
     StyledTitleHeader
 } from "./Dashboard.styles";
+import useModels from "../../../models";
 
 const Dashboard = () => {
 
@@ -89,6 +90,15 @@ const Dashboard = () => {
         }
     }
 
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {user} = useSelector(loginSelectors)
+
+    const handleCertificate = () => {
+        window.open(`http://api-pdf.seranest-interactiva.com/api/generate/${user.fullname}/${user.document}/${user.document_type}`, "_blank")
+    }
+
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>
             <Grid container>
@@ -107,6 +117,8 @@ const Dashboard = () => {
                                 <CertificateCard
                                     title="Certificado"
                                     icon="certification"
+                                    disabled={!(userProgress.percent === 100)}
+                                    onClick={handleCertificate}
                                 />
                             </Grid>
                             <Grid item lg={5} md={5} sm={5} xs={5} className="h-[162px]">

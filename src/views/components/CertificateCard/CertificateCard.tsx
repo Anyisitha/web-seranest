@@ -10,12 +10,15 @@ import {FC} from "react";
 interface ICertificateCard {
     title: string;
     icon: string;
+    disabled?: boolean;
+    onClick?: () => void;
 }
 
-const CertificateCard : FC<ICertificateCard>= ({ title, icon }) => {
+const CertificateCard : FC<ICertificateCard>= ({ title, icon, disabled, onClick }) => {
+    console.log(disabled)
     return (
-        <StyledCertificateCard>
-            <Card sx={{ width: "100%", height: 162 }}>
+        <StyledCertificateCard disabled={disabled} onClick={() => (!disabled && onClick) && onClick}>
+            <Card sx={{ width: "100%", height: 162, background: disabled ? "#e1e1e1" : "#ffffff" }}>
                 <CardContent>
                     <StyledAvancedText1>{title}</StyledAvancedText1>
                     <StledCertificateContainer className="flex items-center bg-red">

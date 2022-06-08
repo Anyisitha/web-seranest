@@ -22,7 +22,9 @@ export const StyledTab = styled(Grid)<{ background?: string; isBody?: boolean; }
 export const StyledContainerTab = styled.div<{ fullWidth?: boolean }>`
   ${({fullWidth}) => fullWidth ? tw`w-full` : tw`w-[20%]`}
   box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 0%), 0px 4px 5px 0px rgb(0 0 0 / 18%), 0px 1px 10px 0px rgb(0 0 0 / 14%);
-
+  @media (max-width: 1024px){
+    ${tw`w-full`}
+  }
 `;
 
 export const StyledNumberModule = styled.h1`
@@ -47,7 +49,7 @@ export const StyledButton = styled(Button)`
 export const StyledButtonSection = styled(Button)<{ disabled: boolean; completed: boolean; }>`
   ${({completed}) => completed ? "background-color: #F7931E !important;" : "background: linear-gradient(90deg, rgba(48, 68, 144, 1) 17%, rgba(29, 182, 253, 1) 58%, rgba(26, 118, 171, 0.6657213910955007) 100%);"}
   color: #fff !important;
-  width: 500px;
+  ${tw`w-full lg:w-[500px]`}
   font-family: "Montserrat", sans-serif !important;
   text-transform: none !important;
   ${tw`my-10`}
@@ -57,9 +59,10 @@ export const StyledButtonSection = styled(Button)<{ disabled: boolean; completed
 `
 
 export const StyledSpan = styled.span`
-  font-size: 1.2rem;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
+  
+  ${tw`text-[1rem] lg:text-[1.2rem]`}
 `
 
 export const StyledPaper = styled(Paper)<{ isMobile?: boolean; }>`
@@ -71,3 +74,4 @@ export const StyledGrid = styled(Grid)`
   margin-top: 0.25rem !important;
   margin-bottom: 0.25rem !important;
 `
+
