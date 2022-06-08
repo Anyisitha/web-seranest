@@ -217,7 +217,7 @@ const Module = () => {
                                 showContent ? (
                                     <>
                                         {
-                                            section.content[0].type === "Actividad interactiva " ? (
+                                            section.content[0].type === "Actividad interactiva" ? (
                                                 <DragAndDrop/>
                                             ) : section.content[0].type === "Video" ? (
                                                 <Video

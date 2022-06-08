@@ -92,7 +92,7 @@ const useQuestions = (questions: any) => {
                         setTimeout(() => {
                             saveSection();
                             setShowQuestion({image: "", open: false})
-                        }, 4000)
+                        }, 5000)
 
                     }else{
                         Swal.fire({
@@ -140,7 +140,7 @@ const useQuestions = (questions: any) => {
                         setTimeout(() => {
                             saveSection();
                             setShowQuestion({image: "", open: false})
-                        }, 2000)
+                        }, 5000)
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -186,7 +186,7 @@ const useQuestions = (questions: any) => {
                         setTimeout(() => {
                             saveSection();
                             setShowQuestion({image: "", open: false})
-                        }, 2000)
+                        }, 5000)
                     }else{
                         Swal.fire({
                             icon: "error",
