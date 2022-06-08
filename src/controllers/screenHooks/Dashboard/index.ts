@@ -1,6 +1,7 @@
 import useApi from "api";
 import { ICallback } from "models/interfaces/general.interfaces";
 import { useCallback, useState } from "react";
+import {useHistory} from "react-router";
 
 const useDashboard = () => {
     /** States */
@@ -10,7 +11,7 @@ const useDashboard = () => {
     /** Api */
     const { useActions } = useApi();
     const { dispatch, useModulesActions } = useActions();
-    const { actGetModules, actGetUserProgress } = useModulesActions();
+    const { actGetModules, actGetUserProgress, actSetModuleFinished } = useModulesActions();
 
     /** Handlers */
     const getModules = useCallback(() => {
@@ -35,13 +36,22 @@ const useDashboard = () => {
         // eslint-disable-next-line
     }, [dispatch]);
 
+    const history = useHistory();
 
+    const saveModule = () => {
+        // @ts-ignore
+        dispatch(actSetModuleFinished({
+            onError: (error: any) => console.log(error),
+            onSuccess: () => history.push("/dashboard")
+        }))
+    }
 
     return {
         modules,
         userProgress,
         getModules,
-        getUserProgress
+        getUserProgress,
+        saveModule
     }
 }
 

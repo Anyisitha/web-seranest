@@ -1,12 +1,13 @@
 import useControllers from "controllers";
 import {
+    Box,
     CardContent,
     Container,
-    Grid,
+    Grid, Modal,
     Paper
 } from "@mui/material";
 import useHelpers from "helpers";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import useComponents from "views/components";
 import {
     StyledButton,
@@ -30,7 +31,8 @@ const Dashboard = () => {
         modules,
         getModules,
         userProgress,
-        getUserProgress
+        getUserProgress,
+        saveModule
     } = useDashboard();
 
     /** Effects */
@@ -45,6 +47,12 @@ const Dashboard = () => {
 
     /** Components */
     const {CircleProgress, CertificateCard} = useComponents();
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(userProgress.moduleFinished === 0) return setOpenModal(true);
+    }, [userProgress.moduleFinished])
 
     const ButtonComponent = ({index, description, id}: { index: number; description: string, id: number; }) => {
         console.log(index)
@@ -99,6 +107,14 @@ const Dashboard = () => {
         window.open(`http://api-pdf.seranest-interactiva.com/api/generate/${user.fullname}/${user.document}/${user.document_type}`, "_blank")
     }
 
+    const handleClose = async() => {
+        await saveModule();
+        setOpenModal(false);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
+
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>
             <Grid container>
@@ -106,7 +122,7 @@ const Dashboard = () => {
                     <Container>
                         <Grid container className="gap-2 justify-center">
                             <Grid item lg={5} md={5} sm={5} xs={5} className="h-[162px]">
-                                <CertificateCard icon="video" title="Introducción"/>
+                                <CertificateCard icon="video" title="Introducción" onClick={() => setOpenModal(true)}/>
                             </Grid>
                             <Grid item lg={5} md={5} sm={5} xs={5} className="h-[162px]">
                                 <CircleProgress percent={userProgress.percent} isBody={false}/>
@@ -220,6 +236,17 @@ const Dashboard = () => {
                     </Container>
                 </StyledSidebar>
             </Grid>
+            <Modal open={openModal}>
+                <div className="flex justify-center items-center h-full w-full">
+                    <video
+                        src={`${process.env.REACT_APP_ASSETS_URL}/introducion.mp4`}
+                        controls
+                        width="50%"
+                        height="50%"
+                        onEnded={handleClose}
+                    ></video>
+                </div>
+            </Modal>
         </StyledContainer>
     )
 }
