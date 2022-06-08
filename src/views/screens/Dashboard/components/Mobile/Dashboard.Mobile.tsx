@@ -141,7 +141,7 @@ const DashboardMobile: FC = () => {
                                                     </Grid>
 
                                                     <Grid item lg={12} className="text-center mt-3">
-                                                        <StyledTextCard bold>Modulo {index + 1}</StyledTextCard>
+                                                        <StyledTextCard bold>Módulo {index + 1}</StyledTextCard>
                                                     </Grid>
                                                     <Grid item lg={12} className="text-center pb-3">
                                                         <StyledTextCard bold={false}

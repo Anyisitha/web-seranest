@@ -11,8 +11,8 @@ const useAdminModules = () => {
 
     /** Variables */
     const steps : any = [
-        "Nombre del modulo",
-        "Secciones del modulo",
+        "Nombre del módulo",
+        "Secciones del módulo",
     ];
 
     /** Handlers */
