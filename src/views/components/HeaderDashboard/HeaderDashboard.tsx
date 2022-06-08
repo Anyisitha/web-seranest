@@ -125,7 +125,7 @@ const HeaderDashboard = () => {
                                 <Grid item md={12} className="flex justify-center pt-6">
                                     <StyledButtonDrawer
                                         onClick={() => history.push(`/module/${item.id}`, {description: item.name})}>
-                                        Modulo {index + 1}
+                                        Módulo {index + 1}
                                         <span className="hidden">{item.name}</span>
                                     </StyledButtonDrawer>
                                 </Grid>
@@ -133,7 +133,7 @@ const HeaderDashboard = () => {
                         }
                         <Grid item md={12} className="flex justify-center pt-6">
                             <StyledButtonDrawer onClick={handleLogout}>
-                                Cerrar Sesión
+                                Cerrar sesión
                             </StyledButtonDrawer>
                         </Grid>
 

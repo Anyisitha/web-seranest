@@ -28,7 +28,7 @@ const LoginCard = () => {
         <StyledCard>
             <StyledCardContent>
                 <StyledHeaderCard background={require('assets/images/gitMovil.gif')}>
-                    <StyledTitleHeader>Iniciar Sesión</StyledTitleHeader>
+                    <StyledTitleHeader>Iniciar sesión</StyledTitleHeader>
                     <StyledSubTitleHeader>Bienvenido(a)</StyledSubTitleHeader>
                 </StyledHeaderCard>
                 <Container>
