@@ -66,13 +66,13 @@ export const StyledModal = styled(Box) <{ background?: string; }>`
 `
 
 export const StyledQuestion = styled.h1`
-  ${tw`text-[#304490] text-[0.8rem] md:text-[1rem]`}
+  ${tw`text-[#304490] text-[0.8rem] md:text-[1.2rem] lg:text-[1.2rem] xl:text-[1.2rem]`}
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
 `;
 
 export const StyledSpan = styled.span`
-  ${tw`text-[0.8rem] md:text-[1rem]`}
+  ${tw`text-[0.8rem] md:text-[1.2rem] lg:text-[1.2rem] xl:text-[1.2rem]`}
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
   font-weight: 500;
