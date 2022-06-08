@@ -12,7 +12,7 @@ const useQuestions = (questions: any) => {
     /** Api */
     const {useActions} = useApi();
     const {dispatch, useModulesActions} = useActions();
-    const {actSetQuestion, actSetQuestionNumber, actSaveSection} = useModulesActions();
+    const {actSetQuestion, actSetQuestionNumber, actSaveSection, actGetUserProgress} = useModulesActions();
 
     /** States */
     const [responses, setResponses] = useState<any[]>([]);
