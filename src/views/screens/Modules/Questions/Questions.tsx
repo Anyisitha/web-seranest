@@ -1,15 +1,16 @@
-import { Container, Grid, Modal } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import {Container, Grid, Modal} from "@mui/material";
+import {Fragment, useEffect, useState} from "react";
 import {
     StyledButton,
     StyledContainerQuestions,
     StyledDescription,
     StyledModal,
     StyledQuestion,
-    StyledSpan,
+    StyledSpan, StyledSpanHover,
     StyledTitle
 } from "./questions.styles";
 import useControllers from "controllers";
+import {useParams} from "react-router";
 
 interface IQuestionsProps {
     module?: number | string;
@@ -18,19 +19,18 @@ interface IQuestionsProps {
     isMobile: boolean;
 }
 
-const Questions = ({ module, description, questions, isMobile }: IQuestionsProps) => {
-    /** States */
-    const [showQuestions, setShowQuestion] = useState<boolean>(false);
-
+const Questions = ({module, description, questions, isMobile}: IQuestionsProps) => {
     /** Controllers */
-    const { useComponentsHooks } = useControllers();
-    const { useQuestions } = useComponentsHooks();
-    const { validateQuestion, handleChange, selectedQuestion, question, resetTest, answers } = useQuestions(questions);
+    const {useComponentsHooks} = useControllers();
+    const {useQuestions} = useComponentsHooks();
+    const {validateQuestion, handleChange, selectedQuestion, question, resetTest, answers, showQuestions, setShowQuestion} = useQuestions(questions);
+
+    const {id} = useParams<{ id: string }>();
 
     /** Effects*/
     useEffect(() => {
         setTimeout(() => {
-            setShowQuestion(true);
+            setShowQuestion({image: "", open: false});
         }, 7000)
     }, [question]);
 
@@ -56,7 +56,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                             question === 0 ? (
                                 <Container>
                                     {
-                                        showQuestions ? (
+                                        !showQuestions.open ? (
                                             <Fragment>
                                                 <StyledTitle>Cuestionario modulo {module}</StyledTitle>
                                                 <StyledDescription>{description}</StyledDescription>
@@ -68,26 +68,19 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                                         ) : (
                                             <Fragment>
                                                 <Modal
-                                                    open={!showQuestions}
+                                                    open={showQuestions.open}
                                                 >
                                                     <Grid item md={12}
-                                                        className="flex justify-center items-center h-full">
+                                                          className="flex justify-center items-center h-full">
                                                         <StyledModal
-                                                            background={"https://eml.com.co/e-learning-roche/roche/images/popup.png"}>
-                                                            <div className="container">
-                                                                <div className="loader">
-                                                                    <div className="rocket">
-                                                                        <i className="fas fa-rocket"></i>
-                                                                        <i className="fas fa-cloud"></i>
-                                                                        <i className="fas fa-cloud"></i>
-                                                                        <i className="fas fa-cloud"></i>
-                                                                        <i className="fas fa-cloud"></i>
-                                                                    </div>
-                                                                    <span>
-                                                                        <i></i>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
+                                                            background={
+                                                                showQuestions.image === "popup" ?
+                                                                    `${process.env.REACT_APP_ASSETS_URL}/images/popup-questions.jpeg`
+                                                                    : showQuestions.image === "isModule5" ?
+                                                                        `${process.env.REACT_APP_ASSETS_URL}/images/constancia.jpeg`
+                                                                        :
+                                                                        `${process.env.REACT_APP_ASSETS_URL}/images/right-answer.png`
+                                                            }>
                                                         </StyledModal>
                                                     </Grid>
                                                 </Modal>
@@ -97,50 +90,76 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                                 </Container>
                             ) : (
                                 <Fragment>
-                                    <StyledQuestion>{`${selectedQuestion.id}. ${selectedQuestion.question}`}</StyledQuestion>
+                                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}
+                                          className="flex justify-between pb-4">
+                                        <Grid item lg={4} xl={4} className="flex items-center">
+                                            <img src={`${process.env.REACT_APP_ASSETS_URL}/images/title-quiz-${id}.png`}
+                                                 alt=""/>
+                                        </Grid>
+                                        <Grid item lg={4} xl={4} className="flex justify-end">
+                                            <img src={`${process.env.REACT_APP_ASSETS_URL}/images/logo-seranest.png`}
+                                                 alt="" width={window.innerWidth >= 1024 ? "35%" : "100%"}/>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container>
+                                        <Grid item xs={2} sm={2} md={2} lg={1} xl={1} className="flex items-center">
+                                            <img
+                                                src={`${process.env.REACT_APP_ASSETS_URL}/images/${selectedQuestion.question_number}-quiz-number.png`}
+                                                width="70%"/>
+                                        </Grid>
+                                        <Grid item xs={10} sm={10} md={10} lg={11} xl={11}
+                                              className="flex items-center">
+                                            <StyledQuestion>{selectedQuestion.question}</StyledQuestion>
+                                        </Grid>
+                                    </Grid>
                                     <div className="">
-                                        <ol type="A" className="mt-8">
+
+                                        <ol type="A">
                                             {
 
                                                 selectedQuestion.answers.map((item: any, index: number) => {
 
                                                     if (index === 0) {
                                                         return (
-                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5"
+                                                                  key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-[#304490] font-bold">A. </b>{item.answers}
+                                                                    <b className={"text-[#ffd913] font-bold"}>A. </b><StyledSpanHover>{item.answers}</StyledSpanHover>
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else if (index === 1) {
                                                         return (
-                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5"
+                                                                  key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-[#304490] font-bold">B. </b>{item.answers}
+                                                                    <b className="text-[#ffd913] font-bold">B. </b><StyledSpanHover>{item.answers}</StyledSpanHover>
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else if (index === 2) {
                                                         return (
-                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5"
+                                                                  key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-[#304490] font-bold">C. </b>{item.answers}
+                                                                    <b className="text-[#ffd913] font-bold">C. </b><StyledSpanHover>{item.answers}</StyledSpanHover>
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
                                                     } else {
                                                         return (
-                                                            <Grid container className="items-center gap-2 pt-5" key={index}>
+                                                            <Grid container className="items-center gap-2 pt-5"
+                                                                  key={index}>
                                                                 <StyledSpan
                                                                     onClick={() => validateQuestion(item.is_correct, selectedQuestion.id, correctAnswer.answers, questions)}
                                                                 >
-                                                                    <b className="text-[#304490] font-bold">D. </b>{item.answers}
+                                                                    <b className="text-[#ffd913] font-bold">D. </b><StyledSpanHover>{item.answers}</StyledSpanHover>
                                                                 </StyledSpan>
                                                             </Grid>
                                                         )
@@ -149,6 +168,23 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                                             }
                                         </ol>
                                     </div>
+                                    <Modal
+                                        open={showQuestions.open}
+                                    >
+                                        <Grid item md={12}
+                                              className="flex justify-center items-center h-full">
+                                            <StyledModal
+                                                background={
+                                                    showQuestions.image === "popup" ?
+                                                        `${process.env.REACT_APP_ASSETS_URL}/images/popup-questions.jpeg`
+                                                        : showQuestions.image === "isModule5" ?
+                                                            `${process.env.REACT_APP_ASSETS_URL}/images/constancia.jpeg`
+                                                            :
+                                                            `${process.env.REACT_APP_ASSETS_URL}/images/right-answer.png`
+                                                }>
+                                            </StyledModal>
+                                        </Grid>
+                                    </Modal>
                                 </Fragment>
                             )
                         }
@@ -177,7 +213,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                                                 open={!showQuestions}
                                             >
                                                 <Grid item md={12}
-                                                    className="flex justify-center items-center h-full">
+                                                      className="flex justify-center items-center h-full">
                                                     <StyledModal
                                                         background={"https://eml.com.co/e-learning-roche/roche/images/popup.png"}>
                                                         <div className="container">
@@ -256,6 +292,7 @@ const Questions = ({ module, description, questions, isMobile }: IQuestionsProps
                                 </Fragment>
                             )
                         }
+
                     </StyledContainerQuestions>
                 )
             }

@@ -1,12 +1,13 @@
 import useApi from "api";
 import useModels from "models";
 import {useState} from "react";
-import {useHistory} from "react-router";
+import {useHistory, useParams} from "react-router";
 import Swal from "sweetalert2";
 
 const useQuestions = (questions: any) => {
     /** History */
     const history = useHistory();
+    const {id: moduleId} = useParams<{id: string}>();
 
     /** Api */
     const {useActions} = useApi();
@@ -16,6 +17,8 @@ const useQuestions = (questions: any) => {
     /** States */
     const [responses, setResponses] = useState<any[]>([]);
     const [oportunity, setOportunity] = useState<number>(0);
+    /** States */
+    const [showQuestions, setShowQuestion] = useState<{ image: string; open: boolean }>({image: "popup",  open: true});
 
     /** Selectors */
     const {useSelectors} = useModels();
@@ -46,8 +49,7 @@ const useQuestions = (questions: any) => {
      *  @return void
      */
     const validateQuestion = (is_correct: number, id: number, answer: string, questions: any[]) => {
-        let percentCorrect: number = questions.length * 0.8;
-        console.log(percentCorrect)
+        let percentCorrect: number = questions.length * 0.7;
         if (is_correct === 0 && oportunity === 0) {
             Swal.fire({
                 icon: "error",
@@ -81,7 +83,17 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length + 1 >= percentCorrect) {
-                        saveSection();
+                        if(moduleId === "5"){
+                            setShowQuestion({image: "isModule5", open: true});
+                        }
+
+                        setShowQuestion({image: "aaaa", open: true});
+
+                        setTimeout(() => {
+                            saveSection();
+                            setShowQuestion({image: "", open: false})
+                        }, 4000)
+
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -121,7 +133,14 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        saveSection();
+                        if(moduleId === "5"){
+                            setShowQuestion({image: "isModule5", open: true});
+                        }
+                        setShowQuestion({image: "aaaa", open: true});
+                        setTimeout(() => {
+                            saveSection();
+                            setShowQuestion({image: "", open: false})
+                        }, 2000)
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -160,7 +179,14 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        saveSection()
+                        if(moduleId === "5"){
+                            setShowQuestion({image: "isModule5", open: true});
+                        }
+                        setShowQuestion({image: "aaaa", open: true});
+                        setTimeout(() => {
+                            saveSection();
+                            setShowQuestion({image: "", open: false})
+                        }, 2000)
                     }else{
                         Swal.fire({
                             icon: "error",
@@ -215,7 +241,9 @@ const useQuestions = (questions: any) => {
         question,
         selectedQuestion,
         resetTest,
-        answers: selectedQuestion.answers
+        answers: selectedQuestion.answers,
+        showQuestions,
+        setShowQuestion
     }
 }
 

@@ -9,7 +9,7 @@ export const StyledContainerQuestions = styled.div.attrs({
   width: 100%;
   background: url('${({background}) => background}') bottom right no-repeat, linear-gradient(to right, #c3c3c1, #fff);
 
-  ${({question}) => question === 0 ? tw`flex justify-center items-center` : tw`px-8 py-16 `}
+  ${({question}) => question === 0 ? tw`flex justify-center items-center` : tw`px-8 `}
   position: relative;
   ${({isMobile}) => isMobile ? tw`h-[100%]` : tw`h-full`}
   ${({isMobile}) => isMobile ? "background-size: contain;" : "background-size: 100% 100%;"};
@@ -66,14 +66,20 @@ export const StyledModal = styled(Box) <{ background?: string; }>`
 `
 
 export const StyledQuestion = styled.h1`
-  ${tw`text-[#304490] text-[1rem]`}
+  ${tw`text-[#304490] text-[0.8rem] md:text-[1rem]`}
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
 `;
 
 export const StyledSpan = styled.span`
-  ${tw`text-[1rem] `}
+  ${tw`text-[0.8rem] md:text-[1rem]`}
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
   font-weight: 500;
 `
+
+export const StyledSpanHover = styled.span`
+  &:hover {
+    ${tw`bg-[#ffd913] text-[#fff]`}
+  }
+`;
