@@ -336,7 +336,7 @@ const Register = () => {
                         </Grid>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
                             <CheckboxRegister
-                                label={`En el cumplimiento de la Ley 1581 de 2012 sobre <b className="habeas">Habeas Data</b>,
+                                label={`En el cumplimiento de la Ley 1581 de 2012 sobre <b className="habeas"><i>Habeas Data</i></b>,
                                 el régimen general de protección de datos personales y sobre
                                 manejo de los mismos, acepto los términos presentados por SerAnest Pharma. Conoce los
                                 términos y condiciones
