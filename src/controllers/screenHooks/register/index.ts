@@ -37,12 +37,6 @@ const useRegister = () => {
                 text: "Debes aceptar nuestra politica de HABEAS data.",
                 icon: "error"
             });
-        }else if(!check3){
-            Swal.fire({
-                title: "Error: Revisa el documento de valor",
-                text: "Debes aceptar el documento de transferencia de valor.",
-                icon: "error"
-            });
         }else{
             // @ts-ignore
             dispatch(actCreateUser({
