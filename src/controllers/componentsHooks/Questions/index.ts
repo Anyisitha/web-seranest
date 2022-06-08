@@ -1,13 +1,13 @@
 import useApi from "api";
 import useModels from "models";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router";
 import Swal from "sweetalert2";
 
 const useQuestions = (questions: any) => {
     /** History */
     const history = useHistory();
-    const {id: moduleId} = useParams<{id: string}>();
+    const {id: moduleId} = useParams<{ id: string }>();
 
     /** Api */
     const {useActions} = useApi();
@@ -17,8 +17,8 @@ const useQuestions = (questions: any) => {
     /** States */
     const [responses, setResponses] = useState<any[]>([]);
     const [oportunity, setOportunity] = useState<number>(0);
-    /** States */
-    const [showQuestions, setShowQuestion] = useState<{ image: string; open: boolean }>({image: "popup",  open: true});
+    const [userProgress, setUserProgress] = useState<any>([]);
+    const [showQuestions, setShowQuestion] = useState<{ image: string; open: boolean }>({image: "popup", open: true});
 
     /** Selectors */
     const {useSelectors} = useModels();
@@ -34,11 +34,16 @@ const useQuestions = (questions: any) => {
      * @return void.
      */
     const saveSection = () => {
-        // @ts-ignore
-        dispatch(actSaveSection({
-            onError: (error: any) => console.log(error),
-            onSuccess: () => window.location.reload()
-        }))
+        if (moduleId && (userProgress.moduleFinished <= moduleId)) {
+            // @ts-ignore
+            dispatch(actSaveSection({
+                onError: (error: any) => console.log(error),
+                onSuccess: () => window.location.reload()
+            }))
+        } else {
+            window.location.reload();
+        }
+
     }
 
     /**
@@ -66,7 +71,7 @@ const useQuestions = (questions: any) => {
                 setResponses([...responses, {question: id, correct: true}]);
 
                 let index = null;
-                let newQuestion = questions.find((item: any,  ind: number) => {
+                let newQuestion = questions.find((item: any, ind: number) => {
                     index = ind;
                     return item.id === question + 1
                 });
@@ -83,7 +88,7 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length + 1 >= percentCorrect) {
-                        if(moduleId === "5"){
+                        if (moduleId === "5") {
                             setShowQuestion({image: "isModule5", open: true});
                         }
 
@@ -94,7 +99,7 @@ const useQuestions = (questions: any) => {
                             setShowQuestion({image: "", open: false})
                         }, 5000)
 
-                    }else{
+                    } else {
                         Swal.fire({
                             icon: "error",
                             title: "Falto un poco mas!",
@@ -116,7 +121,7 @@ const useQuestions = (questions: any) => {
                 setOportunity(0);
                 setResponses([...responses, {question: id, correct: false}]);
                 let index = null;
-                let newQuestion = questions.find((item: any,  ind: number) => {
+                let newQuestion = questions.find((item: any, ind: number) => {
                     index = ind;
                     return item.id === question + 1
                 });
@@ -133,7 +138,7 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        if(moduleId === "5"){
+                        if (moduleId === "5") {
                             setShowQuestion({image: "isModule5", open: true});
                         }
                         setShowQuestion({image: "aaaa", open: true});
@@ -141,7 +146,7 @@ const useQuestions = (questions: any) => {
                             saveSection();
                             setShowQuestion({image: "", open: false})
                         }, 5000)
-                    }else{
+                    } else {
                         Swal.fire({
                             icon: "error",
                             title: "Falto un poco mas!",
@@ -162,7 +167,7 @@ const useQuestions = (questions: any) => {
                 setResponses([...responses, {question: id, correct: true}]);
 
                 let index = null;
-                let newQuestion = questions.find((item: any,  ind: number) => {
+                let newQuestion = questions.find((item: any, ind: number) => {
                     index = ind;
                     return item.id === question + 1
                 });
@@ -179,7 +184,7 @@ const useQuestions = (questions: any) => {
                 } else {
                     const totalResponses = responses.filter((item: any) => item.correct);
                     if (totalResponses.length >= percentCorrect) {
-                        if(moduleId === "5"){
+                        if (moduleId === "5") {
                             setShowQuestion({image: "isModule5", open: true});
                         }
                         setShowQuestion({image: "aaaa", open: true});
@@ -187,7 +192,7 @@ const useQuestions = (questions: any) => {
                             saveSection();
                             setShowQuestion({image: "", open: false})
                         }, 5000)
-                    }else{
+                    } else {
                         Swal.fire({
                             icon: "error",
                             title: "Falto un poco mas!",
@@ -208,7 +213,7 @@ const useQuestions = (questions: any) => {
     const handleChange = (questions: any[]) => {
         console.error(questions)
         let index = null;
-        let firstQuestion = questions.find((item: any,  ind: number) => {
+        let firstQuestion = questions.find((item: any, ind: number) => {
             index = ind + 1
             return item.id === questions[0].id
         });
@@ -234,6 +239,14 @@ const useQuestions = (questions: any) => {
         // @ts-ignore
         dispatch(actSetQuestionNumber({question: 0}));
     }
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(actGetUserProgress({
+            onError: (error: any) => console.log(error.data.message),
+            onSuccess: (data: any) => setUserProgress(data)
+        }))
+    }, [])
 
     return {
         validateQuestion,

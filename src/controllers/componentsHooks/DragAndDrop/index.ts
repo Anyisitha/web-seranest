@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {dragItems} from "./data";
 import {useParams} from "react-router";
 import Swal from "sweetalert2";
@@ -11,20 +11,19 @@ const useDragAndDrop = () => {
   /** Api */
   const {useActions} = useApi();
   const {dispatch, useModulesActions} = useActions();
-  const {actSaveSection} = useModulesActions();
+  const {actSaveSection, actGetUserProgress} = useModulesActions();
 
   /** States */
   const [indexQuestion, setIndexQuestion] = useState<number>(0);
   const [responses, setResponses] = useState<any>([]);
   const [chance, setChance] = useState<number>(0);
+  const [userProgress, setUserProgress] = useState<any>([]);
 
   /** Handlers */
   const handleResult = ({draggableId}: any) => {
     const questions = dragItems.find((item: any) => item.id === parseInt(id));
     const answer = questions?.questions[indexQuestion].answers.find((item: any) => item.image === draggableId);
     const answerCorrect = questions?.questions[indexQuestion].answers.find((item: any) => item.is_correct === 1);
-
-    console.log(chance)
 
     if(answer?.is_correct === 1 && chance === 0){
       setResponses([...responses, {response: true, index: indexQuestion}]);
@@ -35,21 +34,33 @@ const useDragAndDrop = () => {
       })
       if((indexQuestion + 1) === questions?.questions.length){
         if(responses.length + 1 === questions?.questions.length){
-          // @ts-ignore
-          dispatch(actSaveSection({
-            onError: (error: any) => console.log(error),
-            onSuccess: () => {
-              Swal.fire({
-                icon: "success",
-                title: "Bien!",
-                text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
-              }).then(res => {
-                if(res.isConfirmed){
-                  window.location.reload()
-                }
-              })
-            }
-          }));
+          if(id && (userProgress.moduleFinished <= id)) {
+            // @ts-ignore
+            dispatch(actSaveSection({
+              onError: (error: any) => console.log(error),
+              onSuccess: () => {
+                Swal.fire({
+                  icon: "success",
+                  title: "Bien!",
+                  text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
+                }).then(res => {
+                  if(res.isConfirmed){
+                    window.location.reload()
+                  }
+                })
+              }
+            }));
+          }else{
+            Swal.fire({
+              icon: "success",
+              title: "Bien!",
+              text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
+            }).then(res => {
+              if(res.isConfirmed){
+                window.location.reload()
+              }
+            })
+          }
         }else{
           Swal.fire({
             icon: "error",
@@ -83,21 +94,33 @@ const useDragAndDrop = () => {
       })
       if((indexQuestion + 1) === questions?.questions.length){
         if(responses.length + 1 === questions?.questions.length){
-          // @ts-ignore
-          dispatch(actSaveSection({
-            onError: (error: any) => console.log(error),
-            onSuccess: () => {
-              Swal.fire({
-                icon: "success",
-                title: "Bien!",
-                text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
-              }).then(res => {
-                if(res.isConfirmed){
-                  window.location.reload()
-                }
-              })
-            }
-          }));
+          if(id && (userProgress.moduleFinished <= id)) {
+            // @ts-ignore
+            dispatch(actSaveSection({
+              onError: (error: any) => console.log(error),
+              onSuccess: () => {
+                Swal.fire({
+                  icon: "success",
+                  title: "Bien!",
+                  text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
+                }).then(res => {
+                  if(res.isConfirmed){
+                    window.location.reload()
+                  }
+                })
+              }
+            }));
+          }else{
+            Swal.fire({
+              icon: "success",
+              title: "Bien!",
+              text: "Terminaste la actividad interactiva, ahora vamos a resolver el cuestionario.!"
+            }).then(res => {
+              if(res.isConfirmed){
+                window.location.reload()
+              }
+            })
+          }
         }else{
           Swal.fire({
             icon: "error",
@@ -128,6 +151,14 @@ const useDragAndDrop = () => {
       });
     }
   }
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(actGetUserProgress({
+      onError: (error: any) => console.log(error.data.message),
+      onSuccess: (data: any) => setUserProgress(data)
+    }))
+  }, [])
 
   return {
     indexQuestion,
