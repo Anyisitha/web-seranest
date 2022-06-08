@@ -17,7 +17,11 @@ interface ICertificateCard {
 const CertificateCard : FC<ICertificateCard>= ({ title, icon, disabled, onClick }) => {
     console.log(disabled)
     return (
-        <StyledCertificateCard disabled={disabled} onClick={() => (!disabled && onClick) && onClick}>
+        <StyledCertificateCard disabled={disabled} onClick={() => {
+            if(!disabled){
+                onClick && onClick();
+            }
+        }}>
             <Card sx={{ width: "100%", height: 162, background: disabled ? "#e1e1e1" : "#ffffff" }}>
                 <CardContent>
                     <StyledAvancedText1>{title}</StyledAvancedText1>
