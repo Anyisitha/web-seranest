@@ -10,15 +10,18 @@ import {
 import {Grid} from "@mui/material";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import useControllers from "controllers";
+import {useParams} from "react-router";
 
 const DragAndDrop = () => {
     /** Controllers */
     const {useComponentsHooks} = useControllers();
     const {useDragAndDrop} = useComponentsHooks();
-    const {dragItems, handleResult} = useDragAndDrop();
+    const {dragItems, handleResult, indexQuestion} = useDragAndDrop();
 
-    const items = dragItems.find((item: any) => item.id === 1);
+    const {id} = useParams<{id: string}>();
 
+    const items = dragItems.find((item: any) => item.id === parseInt(id));
+    console.log(items)
     return (
         <DragDropContext onDragEnd={(result: any) => handleResult(result)}>
             <StyledHeader item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -50,7 +53,7 @@ const DragAndDrop = () => {
                                         />
                                     </div>
                                     <div>
-                                        <StyledQuestion>{items?.questions[0].question}</StyledQuestion>
+                                        <StyledQuestion>{items?.questions[indexQuestion].question}</StyledQuestion>
                                     </div>
                                 </div>
                                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="flex justify-center pt-5">
@@ -64,7 +67,7 @@ const DragAndDrop = () => {
                             </Grid>
                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} className="pt-10 md:pt-0">
                                 {
-                                    items && items.questions[0].answers.map((item: any, index: number) => (
+                                    items && items.questions[indexQuestion].answers.map((item: any, index: number) => (
                                         <Draggable key={index} draggableId={item.image}  index={index}>
                                             {
                                                 (draggableProvided: any) => (
