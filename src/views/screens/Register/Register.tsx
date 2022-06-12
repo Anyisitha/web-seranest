@@ -144,25 +144,12 @@ const Register = () => {
                                 isFull
                             />
                         </Grid>
-                        <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className="pt-5">
+                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
                             <InputRegister
                                 control={control}
                                 name="document"
                                 placeholder=""
                                 label="Numero de identificacion*:"
-                                type="text"
-                                rules={{
-                                    required: "El campo es requerido"
-                                }}
-                                isLine
-                            />
-                        </Grid>
-                        <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className="pt-5">
-                            <InputRegister
-                                control={control}
-                                name="confirm_document"
-                                placeholder=""
-                                label="Confirme el numero de identificacion* :"
                                 type="text"
                                 rules={{
                                     required: "El campo es requerido"
@@ -224,7 +211,37 @@ const Register = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
+                        <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className="pt-5">
+                            <Grid container>
+                                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
+                                    <CheckboxRegister
+                                        label="Otra especialidad, <br/>¿cuál?"
+                                        onChange={() => {
+                                            if (especialityCheckbox !== "OE") {
+                                                setEspecialityCheckbox("OE");
+                                            } else {
+                                                setEspecialityCheckbox("");
+                                                setValue("especiality", null);
+                                            }
+                                        }}
+                                        checked={especialityCheckbox === "OE"}
+                                    />
+                                </Grid>
+                                <Grid item xl={8} lg={8} md={8} sm={8} xs={8} className="pr-5">
+                                    <InputRegister
+                                        control={control}
+                                        name="especiality"
+                                        placeholder=""
+                                        type="text"
+                                        isFull
+                                        isLine
+                                        noLabel
+                                        disabled={especialityCheckbox === "AS" || especialityCheckbox === "RA"}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xl={6} lg={6} md={12} sm={12} xs={12} className="pt-5">
                             <InputRegister
                                 control={control}
                                 name="work_address"
@@ -234,20 +251,6 @@ const Register = () => {
                                 rules={{
                                     required: "El campo es requerido"
                                 }}
-                                isFull
-                            />
-                        </Grid>
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
-                            <InputRegister
-                                control={control}
-                                name="address"
-                                placeholder=""
-                                label="Dirección de correspondencia* :"
-                                type="text"
-                                rules={{
-                                    required: "El campo es requerido"
-                                }}
-                                isLine
                                 isFull
                             />
                         </Grid>

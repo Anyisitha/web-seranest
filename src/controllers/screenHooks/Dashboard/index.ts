@@ -1,7 +1,8 @@
 import useApi from "api";
 import { ICallback } from "models/interfaces/general.interfaces";
-import { useCallback, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useHistory} from "react-router";
+import useModels from "../../../models";
 
 const useDashboard = () => {
     /** States */
@@ -13,10 +14,16 @@ const useDashboard = () => {
     const { dispatch, useModulesActions } = useActions();
     const { actGetModules, actGetUserProgress, actSetModuleFinished } = useModulesActions();
 
+    // Selectors
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {token} = useSelector(loginSelectors);
+
     /** Handlers */
     const getModules = useCallback(() => {
         const request: ICallback = {
-            onError: (error: any) => console.log(error.data.message),
+            onError: (error: any) => console.log(error),
             onSuccess: (data: any) => setModules(data)
         }
 
@@ -27,7 +34,7 @@ const useDashboard = () => {
 
     const getUserProgress = useCallback(() => {
         const request: ICallback = {
-            onError: (error: any) => console.log(error.data.message),
+            onError: (error: any) => console.log(error),
             onSuccess: (data: any) => setUserProgress(data)
         }
 
@@ -45,6 +52,12 @@ const useDashboard = () => {
             onSuccess: () => history.push("/dashboard")
         }))
     }
+
+    useEffect(() => {
+        if(token === undefined){
+            history.push("/")
+        }
+    }, [])
 
     return {
         modules,

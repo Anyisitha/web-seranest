@@ -5,9 +5,10 @@ export interface IInputRegisterProps {
     rules?: any;
     name: string;
     placeholder: string;
-    label: string;
+    label?: string;
     type: string;
     isLine?: boolean;
     isFull?: boolean;
     disabled?: boolean;
+    noLabel?: boolean;
 }

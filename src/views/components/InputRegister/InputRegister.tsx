@@ -13,26 +13,46 @@ const InputRegister: FC<IInputRegisterProps> = ({
                                                     label,
                                                     isLine,
                                                     isFull,
-                                                    disabled
+                                                    disabled,
+                                                    noLabel
                                                 }) => {
     const InputComponent = (controlInput: any) => {
         const {field, fieldState} = controlInput;
-
+        console.log(field.name)
         return (
             <Grid container>
-                <Grid item xl={4} lg={4} md={12} sm={12} xs={12} className="flex items-center">
-                    <StyledLabel>{label}</StyledLabel>
-                </Grid>
-                <Grid item xl={isFull ? 8 : 7} lg={isFull ? 8 : 7} md={12} sm={12} xs={12} className="pl-2">
-                    <StyledInput
-                        name={fieldState.name}
-                        placeholder={placeholder}
-                        type={type}
-                        onChange={(e) => field.onChange(e)}
-                        value={field.value}
-                        disabled={disabled}
-                    />
-                </Grid>
+                {
+                    !noLabel && (
+                        <Grid item xl={4} lg={4} md={12} sm={12} xs={12} className="flex items-center">
+                            <StyledLabel>{label}</StyledLabel>
+                        </Grid>
+                    )
+                }
+                {
+                    !noLabel ? (
+                        <Grid item xl={isFull ? 8 : 7} lg={isFull ? 8 : 7} md={12} sm={12} xs={12} className="pl-2">
+                            <StyledInput
+                                name={fieldState.name}
+                                placeholder={placeholder}
+                                type={type}
+                                onChange={(e) => field.onChange(e)}
+                                value={field.value}
+                                disabled={disabled}
+                            />
+                        </Grid>
+                    ) : (
+                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pl-2">
+                            <StyledInput
+                                name={fieldState.name}
+                                placeholder={placeholder}
+                                type={type}
+                                onChange={(e) => field.onChange(e)}
+                                value={field.value}
+                                disabled={disabled}
+                            />
+                        </Grid>
+                    )
+                }
             </Grid>
         );
     }

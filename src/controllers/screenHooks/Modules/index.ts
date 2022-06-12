@@ -25,9 +25,15 @@ const useModules = () => {
     const { dispatch, useModulesActions } = useActions();
     const { actGetModuleSections, actSetSection, actGetQuestions, actSaveSection, actSetModuleFinished, actGetUserProgress } = useModulesActions();
 
+    // Selectors
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {token} = useSelector(loginSelectors);
+
     const getUserProgress = () => {
         const request: ICallback = {
-            onError: (error: any) => console.log(error.data.message),
+            onError: (error: any) => console.log(error),
             onSuccess: (data: any) => setUserProgress(data)
         }
 
@@ -120,7 +126,10 @@ const useModules = () => {
     }
 
     useEffect(() => {
-        getUserProgress()
+        getUserProgress();
+        if(token === undefined){
+            history.push("/")
+        }
     }, [getUserProgress])
     return {
         id,

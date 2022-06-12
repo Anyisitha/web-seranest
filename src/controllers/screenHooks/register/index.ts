@@ -1,8 +1,9 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Swal from "sweetalert2";
 import useApi from "api";
 import {useHistory} from "react-router";
+import useModels from "../../../models";
 
 const useRegister = () => {
     // History
@@ -19,6 +20,12 @@ const useRegister = () => {
     const [check1, setCheck1] = useState<boolean>(false);
     const [check2, setCheck2] = useState<boolean>(false);
     const [check3, setCheck3] = useState<boolean>(false);
+
+    // Selectors
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {token} = useSelector(loginSelectors);
 
     // Hook form
     const {
@@ -40,7 +47,7 @@ const useRegister = () => {
         }else{
             // @ts-ignore
             dispatch(actCreateUser({
-                user: {...data, fullname: `${data.name} ${data.last_name}`},
+                user: {...data, fullname: `${data.name} ${data.last_name}`, address: "123456789"},
                 onSuccess: () => {
                     Swal.fire({
                         icon: "success",
@@ -72,8 +79,10 @@ const useRegister = () => {
                 }
             }))
         }
-        console.log(data);
     }
+
+    useEffect(() => {
+    }, [])
 
     return {
         control,

@@ -1,8 +1,9 @@
 import useApi from "api";
 import useHelpers from "helpers";
 import { ILoginAdmin, ILoginAdminAction } from "models/interfaces/LoginAdmin.interfaces";
-import { useCallback } from "react";
+import {useCallback, useEffect} from "react";
 import { useForm } from "react-hook-form";
+import useModels from "../../../models";
 
 const useLoginAdmin = () => {
     /** Helpers */
@@ -13,6 +14,12 @@ const useLoginAdmin = () => {
     const { useActions } = useApi();
     const { dispatch, useLoginAdminActions } = useActions();
     const { actLoginAdmin } = useLoginAdminActions();
+
+    // Selectors
+    const {useSelectors} = useModels();
+    const {useSelector, useLoginSelectors} = useSelectors();
+    const {loginSelectors} = useLoginSelectors();
+    const {token} = useSelector(loginSelectors);
 
     /** Form Hooks */
     const {
@@ -44,6 +51,12 @@ const useLoginAdmin = () => {
         dispatch<any>(actLoginAdmin(request));
         // eslint-disable-next-line
     }, [dispatch])
+
+    useEffect(() => {
+        if(token === undefined){
+            history.push("/")
+        }
+    }, [])
 
     return {
         control,

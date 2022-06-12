@@ -3,6 +3,7 @@ import { CardActions, Container } from "@mui/material";
 import useControllers from "controllers";
 import { Link } from "react-router-dom";
 import useComponents from "views/components";
+import useLocalComponents from "views/localComponents";
 import {
     StyledButton,
     StyledCard,
@@ -14,11 +15,18 @@ import {
     StyledTextPassword,
     StyledTitleHeader
 } from "./LoginCard.styled";
+import {useState} from "react";
 
 const LoginCard = () => {
     /** Components */
     const { Input } = useComponents();
-    
+
+    /** States */
+    const [openModal, setOpenModal] = useState<boolean>(false);
+
+    /** Local Components */
+    const {LostPassword} = useLocalComponents();
+
     /** Controllers */
     const { useScreenHooks } = useControllers();
     const { useLoginAdmin } = useScreenHooks();
@@ -26,6 +34,10 @@ const LoginCard = () => {
     
     return (
         <StyledCard>
+            <LostPassword
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+            />
             <StyledCardContent>
                 <StyledHeaderCard background={require('assets/images/gitMovil.gif')}>
                     <StyledTitleHeader>Iniciar sesión</StyledTitleHeader>
@@ -68,7 +80,7 @@ const LoginCard = () => {
                     </StyledInputContainer>
                 </Container>
                 <StyledTextPassword item lg={12}>
-                    <StyledPasswordLot>¿Olvidó su contraseña?</StyledPasswordLot>
+                    <StyledPasswordLot onClick={() => setOpenModal(true)}>¿Olvidó su contraseña?</StyledPasswordLot>
                 </StyledTextPassword>
             </StyledCardContent>
             <CardActions style={{ flexWrap: "wrap", justifyContent: "center", flexDirection: "column" }}>
