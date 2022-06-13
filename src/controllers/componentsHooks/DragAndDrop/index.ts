@@ -81,7 +81,7 @@ const useDragAndDrop = () => {
       Swal.fire({
         icon: "error",
         title: "Respuesta incorrecta",
-        text: 'Animo, intentalo de nuevo'
+        text: '¡Inténtalo una vez más!'
       });
     }
 
@@ -89,8 +89,8 @@ const useDragAndDrop = () => {
       setResponses([...responses, {response: true, index: indexQuestion}]);
       Swal.fire({
         icon: "success",
-        title: "Respuesta Correcta",
-        text: "Bien Hecho!"
+        title: "¡Muy bien!",
+        text: "Respuesta correcta"
       })
       if((indexQuestion + 1) === questions?.questions.length){
         if(responses.length + 1 === questions?.questions.length){

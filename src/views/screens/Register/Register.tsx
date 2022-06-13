@@ -284,6 +284,7 @@ const Register = () => {
                     onChange={() => {
                       if (especialityCheckbox !== "OE") {
                         setEspecialityCheckbox("OE");
+                        setValue("especiality", '');
                       } else {
                         setEspecialityCheckbox("");
                         setValue("especiality", null);
@@ -365,7 +366,7 @@ const Register = () => {
                 name="phone"
                 placeholder=""
                 label="Telefono Movil:*"
-                type="text"
+                type="number"
                 rules={{
                   required: "El campo es requerido",
                 }}

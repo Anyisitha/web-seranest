@@ -58,14 +58,14 @@ const useQuestions = (questions: any) => {
         if (is_correct === 0 && oportunity === 0) {
             Swal.fire({
                 icon: "error",
-                title: "Respuesta Incorrecta!",
-                text: "Tienes un intento mas para responder correctamente, Animo!"
+                title: "¡Muy bien!",
+                text: "Respuesta correcta"
             }).then(r => setOportunity(1));
         } else if (is_correct === 1 && oportunity === 0) {
             Swal.fire({
                 icon: "success",
-                title: "Respuesta Correcta!",
-                text: "Bien!, contestaste correctamente"
+                title: "¡Muy bien!",
+                text: "Respuesta correcta"
             }).then(r => {
                 setOportunity(0);
                 setResponses([...responses, {question: id, correct: true}]);
@@ -102,8 +102,8 @@ const useQuestions = (questions: any) => {
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Falto un poco mas!",
-                            html: `Tranquilo(a) intentalo nuevamente para que puedas habilitar los siguientes modulos
+                            title: "Vuelva a intentarlo para",
+                            html: ` obtener su constancia
                                 Tu nota fue de: <b>${totalResponses.length + 1}</b>
                             `
                         }).then(r => history.push("/dashboard"))
@@ -116,7 +116,7 @@ const useQuestions = (questions: any) => {
             Swal.fire({
                 icon: "error",
                 title: "Respuesta Incorrecta!",
-                html: `la respuesta correcta era: <b>${answer}</b>`
+                html: `la respuesta correcta es: <b>${answer}</b>`
             }).then(r => {
                 setOportunity(0);
                 setResponses([...responses, {question: id, correct: false}]);
@@ -160,8 +160,8 @@ const useQuestions = (questions: any) => {
         } else if (is_correct === 1 && oportunity === 1) {
             Swal.fire({
                 icon: "success",
-                title: "Respuesta Correcta!",
-                text: "Bien!, contestaste correctamente"
+                title: "¡Muy bien!",
+                text: "Respuesta correcta"
             }).then(r => {
                 setOportunity(0);
                 setResponses([...responses, {question: id, correct: true}]);
