@@ -246,7 +246,7 @@ const Register = () => {
                                 control={control}
                                 name="work_address"
                                 placeholder=""
-                                label="Lugar de trabajo o donde desarrolla su programa académico de residencia* :"
+                                label="Sitio de trabajo u hospital donde labora actualmente* :"
                                 type="text"
                                 rules={{
                                     required: "El campo es requerido"
