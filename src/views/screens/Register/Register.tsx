@@ -353,20 +353,7 @@ const Register = () => {
                                 checked={check2}
                             />
                         </Grid>
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="pt-5">
-                            <CheckboxRegister
-                                label={`Documento transferencia de valor <a href="https://seranest-interactiva.com/permisos/TRANSFERENCIAS_DE_VALOR.pdf" target="_blank">Aquí</a>.`}
-                                isFull
-                                isMinimum
-                                onChange={() => {
-                                    setCheck3(!check3)
-                                }}
-                                checked={check3}
-                            />
-                            {errors.name === "check3" && (
-                                <span className="text-danger">Debes aceptar los terminos y condiciones</span>
-                            )}
-                        </Grid>
+                       
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="py-2">
                             <small className="text-red-700">* Datos requeridos</small>
                         </Grid>
