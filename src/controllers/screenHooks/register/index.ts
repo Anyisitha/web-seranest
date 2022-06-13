@@ -52,7 +52,7 @@ const useRegister = () => {
                     Swal.fire({
                         icon: "success",
                         title: "Bienvenido a Seranest!",
-                        text: "Ahora puedes ingresar a nuestra plataforma con el correo electronico y contraseña que ingresaste"
+                        text: "Su registro se ha creado exitosamente. Lo invitamos a ingresar a SerAnest Interac-TIVA y obtenga su constancia"
                     }).then((res) => {
                         if(res.isConfirmed){
                             reset({

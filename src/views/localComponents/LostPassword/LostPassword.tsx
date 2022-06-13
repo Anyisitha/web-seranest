@@ -62,6 +62,7 @@ const LostPassword: FC<ILostPasswordProps> = ({
                             onChange={(e: any) => field.onChange(e)}
                             name={field.name}
                             value={field.value}
+                            type="password"
                         />
                       </Paper>
                     </>)} />
@@ -80,6 +81,7 @@ const LostPassword: FC<ILostPasswordProps> = ({
                             onChange={(e: any) => field.onChange(e)}
                             name={field.name}
                             value={field.value}
+                            type="password"
                         />
                       </Paper>
                     </>)} />

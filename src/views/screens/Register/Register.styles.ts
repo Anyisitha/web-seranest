@@ -12,7 +12,7 @@ export const StyledLogoSeranest = styled.img`
 `;
 
 export const StyledDescription = styled.span`
-  ${tw`text-[20px]`}
+  ${tw`text-[23px]`}
   font-family: "FuturaNDLight";
 `;
 
