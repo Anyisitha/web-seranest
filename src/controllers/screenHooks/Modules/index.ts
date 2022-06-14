@@ -76,7 +76,7 @@ const useModules = () => {
         } else if(sectionSeach.content[0].type === "pdf") {
             window.open(sectionSeach.content[0].content, "_blank")
             const uu = userProgress.moduleFinished + 1
-            if(uu < 6){
+            if(uu < 7){
                 saveModule()
             }
             history.push("/dashboard")
