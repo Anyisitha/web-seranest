@@ -42,7 +42,7 @@ const Dashboard = () => {
     useEffect(() => {
         getModules();
         getUserProgress();
-    }, [getModules, getUserProgress]);
+    }, []);
 
     /** Helpers */
     const {useNavigationHelpers} = useHelpers();
