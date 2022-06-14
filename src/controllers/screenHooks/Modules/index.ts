@@ -75,7 +75,8 @@ const useModules = () => {
             )
         } else if(sectionSeach.content[0].type === "pdf") {
             window.open(sectionSeach.content[0].content, "_blank")
-            if((parseInt(userProgress.moduleFinished) + 1) > 6){
+            const uu = userProgress.moduleFinished + 1
+            if(uu < 6){
                 saveModule()
             }
             history.push("/dashboard")
@@ -127,7 +128,11 @@ const useModules = () => {
         if (token === undefined) {
             history.push("/")
         }
-    }, [])
+
+        getUserProgress();
+    }, []);
+
+
     return {
         id,
         sections,
