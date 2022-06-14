@@ -30,9 +30,9 @@ const useDashboard = () => {
         // @ts-ignore
         dispatch(actGetModules(request));
         // eslint-disable-next-line
-    }, [dispatch]);
+    }, []);
 
-    const getUserProgress = useCallback(() => {
+    const getUserProgress = () => {
         const request: ICallback = {
             onError: (error: any) => console.log(error),
             onSuccess: (data: any) => setUserProgress(data)
@@ -40,8 +40,7 @@ const useDashboard = () => {
 
         // @ts-ignore
         dispatch(actGetUserProgress(request));
-        // eslint-disable-next-line
-    }, [dispatch]);
+    }
 
     const history = useHistory();
 
@@ -52,12 +51,6 @@ const useDashboard = () => {
             onSuccess: () => history.push("/dashboard")
         }))
     }
-
-    useEffect(() => {
-        if(token === undefined){
-            history.push("/")
-        }
-    }, [])
 
     return {
         modules,

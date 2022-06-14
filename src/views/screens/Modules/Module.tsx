@@ -39,7 +39,7 @@ const Module = () => {
     /** Effects */
     useEffect(() => {
         getUserProgress();
-        // getModulesSections();
+        getModulesSections();
     }, [])
 
     return (

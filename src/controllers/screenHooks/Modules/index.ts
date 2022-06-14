@@ -126,11 +126,10 @@ const useModules = () => {
     }
 
     useEffect(() => {
-        getUserProgress();
         if(token === undefined){
             history.push("/")
         }
-    }, [getUserProgress])
+    }, [])
     return {
         id,
         sections,
