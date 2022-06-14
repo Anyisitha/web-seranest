@@ -58,7 +58,7 @@ const Questions = ({module, description, questions, isMobile}: IQuestionsProps) 
                                     {
                                         !showQuestions.open ? (
                                             <Fragment>
-                                                <StyledTitle>Cuestionario modulo {module}</StyledTitle>
+                                                <StyledTitle>Cuestionario módulo {module}</StyledTitle>
                                                 <StyledDescription>{description}</StyledDescription>
                                                 <Grid md={12} className="flex justify-center mt-6">
                                                     <StyledButton

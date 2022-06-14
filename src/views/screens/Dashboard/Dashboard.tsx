@@ -129,7 +129,7 @@ const Dashboard = () => {
 
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>
-            <Particles
+            {/* <Particles
                 id="tsparticles"
                 init={particlesInit}
                 options={{
@@ -204,7 +204,7 @@ const Dashboard = () => {
                     },
                     detectRetina: true,
                 }}
-            />
+            /> */}
             <Grid container>
                 <StyledSidebar item lg={4} xl={4} md={4} sm={12} xs={12} notFullScreen className="pt-10">
                     <Container>

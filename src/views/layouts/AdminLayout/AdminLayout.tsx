@@ -19,7 +19,7 @@ const AdminLayout : FC<{children: any;}> = ({ children }) => {
                         <Grid container>
                             <Grid item md={3} className="p-8">
                                 <StyledTab item md={12}>
-                                    <span>Modulos</span>
+                                    <span>Módulos</span>
                                 </StyledTab>
                             </Grid>
                             <Grid item md={9}>
