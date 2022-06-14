@@ -18,11 +18,11 @@ const useModulesActions = () => {
     } = useModulesProviders();
 
     // Strings
-    const {useLoginTypes} = useStrings();
-    const {USER_PROGRESS} = useLoginTypes();
+    const { useLoginTypes } = useStrings();
+    const { USER_PROGRESS } = useLoginTypes();
 
 
-    const actGetModules = (request: ICallback) => async(dispatch: Dispatch) => {
+    const actGetModules = (request: ICallback) => async (dispatch: Dispatch) => {
         const { onError, onSuccess } = request;
         try {
             const res = await getModules();
@@ -34,7 +34,7 @@ const useModulesActions = () => {
         }
     }
 
-    const actGetUserProgress = (request: ICallback) => async(dispatch: Dispatch) => {
+    const actGetUserProgress = (request: ICallback) => async (dispatch: Dispatch) => {
         const { onError, onSuccess } = request;
         try {
             const res = await getUserProgress();
@@ -51,7 +51,7 @@ const useModulesActions = () => {
         }
     }
 
-    const actGetModuleSections = (request: IGetModuleSection) => async(dispatch: Dispatch) => {
+    const actGetModuleSections = (request: IGetModuleSection) => async (dispatch: Dispatch) => {
         const { onError, onSuccess, id } = request;
         try {
             const res = await getModuleSections(id);
@@ -63,19 +63,22 @@ const useModulesActions = () => {
         }
     }
 
-    const actSetSection = (request: IGetModuleSection) => async(dispatch: Dispatch) => {
+    const actSetSection = (request: IGetModuleSection) => async (dispatch: Dispatch) => {
         const { onError, onSuccess, id } = request;
         try {
             const res = await setSection(id);
-            const { data } = res.data;
+            if (res.data.data) {
+                const { data } = res.data;
 
-            onSuccess && onSuccess(data);
+                onSuccess && onSuccess(data);
+            }
+
         } catch (error) {
             onError && onError(error);
         }
     }
 
-    const actGetQuestions = (request: IGetModuleSection) => async(dispatch: Dispatch) => {
+    const actGetQuestions = (request: IGetModuleSection) => async (dispatch: Dispatch) => {
         const { onError, onSuccess, id } = request;
         try {
             const res = await getQuestions(id);
@@ -87,8 +90,8 @@ const useModulesActions = () => {
         }
     }
 
-    const actSetModuleFinished = (request: ICallback) => async(dispatch: Dispatch) => {
-        const { onError, onSuccess} = request;
+    const actSetModuleFinished = (request: ICallback) => async (dispatch: Dispatch) => {
+        const { onError, onSuccess } = request;
         try {
             const res = await setModule();
             const { data } = res.data;
@@ -99,8 +102,8 @@ const useModulesActions = () => {
         }
     }
 
-    const actSetQuestion = (request: ICallback, question: any) => async(dispatch: Dispatch) => {
-        const { onError, onSuccess} = request;
+    const actSetQuestion = (request: ICallback, question: any) => async (dispatch: Dispatch) => {
+        const { onError, onSuccess } = request;
         try {
             console.log("preguntas: ", question)
 
@@ -115,7 +118,7 @@ const useModulesActions = () => {
         }
     }
 
-    const actSetQuestionNumber = (question: any) => async(dispatch: Dispatch) => {
+    const actSetQuestionNumber = (question: any) => async (dispatch: Dispatch) => {
         try {
             console.log(question)
             dispatch({
@@ -127,13 +130,13 @@ const useModulesActions = () => {
         }
     }
 
-    const actSaveSection = (request: ICallback) => async(dispatch: Dispatch) => {
-        const {onError,onSuccess} = request;
+    const actSaveSection = (request: ICallback) => async (dispatch: Dispatch) => {
+        const { onError, onSuccess } = request;
         try {
             await saveSection();
 
             onSuccess && onSuccess();
-        }catch (e) {
+        } catch (e) {
             onError && onError(e);
         }
     }

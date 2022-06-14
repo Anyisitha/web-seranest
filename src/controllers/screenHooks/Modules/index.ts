@@ -101,15 +101,11 @@ const useModules = () => {
      * @return void.
      */
     const saveSection = () => {
-        if (id && (userProgress.moduleFinished <= id)) {
-            // @ts-ignore
-            dispatch(actSaveSection({
-                onError: (error: any) => console.log(error),
-                onSuccess: () => window.location.reload()
-            }));
-        } else {
-            window.location.reload();
-        }
+        // @ts-ignore
+        dispatch(actSaveSection({
+            onError: (error: any) => console.log(error),
+            onSuccess: () => window.location.reload()
+        }));
     }
 
     const saveModule = () => {

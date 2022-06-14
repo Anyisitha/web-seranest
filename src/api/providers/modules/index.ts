@@ -12,7 +12,7 @@ const useModulesProviders = () => {
     const getModules = () => trackPromise(axios.get("/module/get-modules", { headers: { Authorization: `Bearer ${token}` } }));
     const getUserProgress = () => trackPromise(axios.get("/module/get-user-progress", { headers: { Authorization: `Bearer ${token}` } }));
     const getModuleSections = (id?: string) => trackPromise(axios.get(`/module/get-module-section/${id}`, { headers: { Authorization: `Bearer ${token}` } }));
-    const setSection = (id?: string) => trackPromise(axios.post(`/module/set-module`, { id }, { headers: { Authorization: `Bearer ${token}` } }));
+    const setSection = (id?: string) => trackPromise(axios.post(`/module/set-module`, { headers: { Authorization: `Bearer ${token}` } }));
     const getQuestions = (id?: string) => trackPromise(axios.get(`/module/get-questions/${id}`, { headers: { Authorization: `Bearer ${token}` } }));
     const setModule = () => trackPromise(axios.get(`/module/set-modules-final`, { headers: { Authorization: `Bearer ${token}` } }));
 
