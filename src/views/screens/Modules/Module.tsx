@@ -39,8 +39,8 @@ const Module = () => {
     /** Effects */
     useEffect(() => {
         getUserProgress();
-        getModulesSections();
-    }, [getUserProgress, getModulesSections])
+        // getModulesSections();
+    }, [])
 
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>

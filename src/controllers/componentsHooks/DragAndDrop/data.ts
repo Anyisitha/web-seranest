@@ -234,7 +234,7 @@ export const dragItems = [
                     },
                     {
                         image: "answer-2-question-1-module-5.png",
-                        is_correct: 1,
+                        is_correct: 0,
                         text: "todas las anteriores"
                     },
                     {
@@ -244,7 +244,7 @@ export const dragItems = [
                     },
                     {
                         image: "answer-4-question-1-module-5.png",
-                        is_correct: 0,
+                        is_correct: 1,
                         text: "todas las anteriores"
                     }
                 ]

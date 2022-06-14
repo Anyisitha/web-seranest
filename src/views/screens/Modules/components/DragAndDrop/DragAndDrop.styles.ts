@@ -11,11 +11,11 @@ export const StyledTitleActivity = styled.img`
 `;
 
 export const StyledLogo = styled.img`
-  ${tw`w-[50%]`}
+  ${tw`w-[35%]`}
 `;
 
 export const StyledNumberQuestion = styled.img`
-  ${tw`w-full sm:w-[50%]`}
+  ${tw`w-full sm:w-[85%]`}
 `;
 
 export const StyledQuestion = styled.p`

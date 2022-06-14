@@ -48,7 +48,11 @@ const DragAndDrop = () => {
                                 <div className="flex">
                                     <div className="flex items-center w-[20%]">
                                         <StyledNumberQuestion
-                                            src={`${process.env.REACT_APP_ASSETS_URL}/images/1-number-question.png`}
+                                            src={
+                                                indexQuestion === 0 ?
+                                                `${process.env.REACT_APP_ASSETS_URL}/images/1-number-question.png`
+                                                : `${process.env.REACT_APP_ASSETS_URL}/images/2-quiz-number.png`
+                                            }
                                             alt="Number Question"
                                         />
                                     </div>
