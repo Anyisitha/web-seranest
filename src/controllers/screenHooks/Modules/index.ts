@@ -1,10 +1,10 @@
 import useApi from "api";
 import { IGetModuleSection } from "models/interfaces/modules.interfaces";
-import {useCallback, useEffect, useState} from "react";
-import {useHistory, useLocation, useParams} from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { useHistory, useLocation, useParams } from "react-router";
 import Swal from "sweetalert2";
 import useModels from "../../../models";
-import {ICallback} from "../../../models/interfaces/general.interfaces";
+import { ICallback } from "../../../models/interfaces/general.interfaces";
 
 const useModules = () => {
     /** Params */
@@ -26,10 +26,10 @@ const useModules = () => {
     const { actGetModuleSections, actSetSection, actGetQuestions, actSaveSection, actSetModuleFinished, actGetUserProgress } = useModulesActions();
 
     // Selectors
-    const {useSelectors} = useModels();
-    const {useSelector, useLoginSelectors} = useSelectors();
-    const {loginSelectors} = useLoginSelectors();
-    const {token} = useSelector(loginSelectors);
+    const { useSelectors } = useModels();
+    const { useSelector, useLoginSelectors } = useSelectors();
+    const { loginSelectors } = useLoginSelectors();
+    const { token } = useSelector(loginSelectors);
 
     const getUserProgress = () => {
         const request: ICallback = {
@@ -59,7 +59,7 @@ const useModules = () => {
         let sectionSeach = sections.find((item: any) => item.id === sectionSelected)
 
         console.log(sectionSeach)
-        
+
         if (sectionSeach.content[0].type === "Cuestionario") {
             const request: IGetModuleSection = {
                 id: sectionSelected.toString(),
@@ -101,32 +101,28 @@ const useModules = () => {
      * @return void.
      */
     const saveSection = () => {
-        if(id && (userProgress.moduleFinished <= id)) {
+        if (id && (userProgress.moduleFinished <= id)) {
             // @ts-ignore
             dispatch(actSaveSection({
                 onError: (error: any) => console.log(error),
                 onSuccess: () => window.location.reload()
             }));
-        }else{
+        } else {
             window.location.reload();
         }
     }
 
     const saveModule = () => {
-        if(id && (userProgress.moduleFinished <= id)) {
-            // @ts-ignore
-            dispatch(actSetModuleFinished({
-                onError: error => console.log(error),
-                onSuccess: data => history.push("/dashboard")
-            }))
-        }else{
-            window.location.reload();
-        }
+        // @ts-ignore
+        dispatch(actSetModuleFinished({
+            onError: error => console.log(error),
+            onSuccess: data => history.push("/dashboard")
+        }))
 
     }
 
     useEffect(() => {
-        if(token === undefined){
+        if (token === undefined) {
             history.push("/")
         }
     }, [])

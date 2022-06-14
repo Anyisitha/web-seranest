@@ -10,7 +10,7 @@ const Iframe: FC<IIframeProps> = ({url, onClick}) => {
         <>
             <span
                 className="text-white absolute z-[1] right-[5%] top-[3%] cursor-pointer"
-                onClick={onClick}
+                onClick={() => onClick()}
             >
             X
         </span>

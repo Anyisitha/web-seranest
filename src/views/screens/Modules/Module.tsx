@@ -40,7 +40,7 @@ const Module = () => {
     useEffect(() => {
         getUserProgress();
         getModulesSections();
-    }, [])
+    }, [id])
 
     return (
         <StyledContainer background={`${process.env.REACT_APP_ASSETS_URL}/images/background-login.jpeg`}>
