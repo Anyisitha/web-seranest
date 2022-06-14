@@ -58,8 +58,8 @@ const useQuestions = (questions: any) => {
         if (is_correct === 0 && oportunity === 0) {
             Swal.fire({
                 icon: "error",
-                title: "¡Muy bien!",
-                text: "Respuesta correcta"
+                title: "Respuesta Incorrecta!",
+                text: "¡Inténtalo una vez más!"
             }).then(r => setOportunity(1));
         } else if (is_correct === 1 && oportunity === 0) {
             Swal.fire({
