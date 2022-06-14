@@ -73,6 +73,12 @@ const useModules = () => {
             setSection(
                 sections.find((item: any) => item.id === sectionSelected)
             )
+        } else if(sectionSeach.content[0].type === "pdf") {
+            window.open(sectionSeach.content[0].content, "_blank")
+            if((parseInt(userProgress.moduleFinished) + 1) > 6){
+                saveModule()
+            }
+            history.push("/dashboard")
         } else {
             setSection(
                 sections.find((item: any) => item.id === sectionSelected)
