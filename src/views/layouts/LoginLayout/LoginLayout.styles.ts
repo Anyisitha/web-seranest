@@ -11,7 +11,7 @@ export const StyledMain = styled.main.attrs({
 export const StyledContainer = styled.div.attrs({
     className: 'container-login'
 }) <IStyledContainer>`
-    ${tw`h-screen p-8`}
+    ${tw`h-full p-8`}
     ${({ backgroundImage }) => `background-image: url('${backgroundImage}')`};
     background-size: 100% 100%;
     background-repeat: no-repeat;   
